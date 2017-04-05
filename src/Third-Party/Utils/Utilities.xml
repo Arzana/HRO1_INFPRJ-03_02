@@ -4,63 +4,69 @@
         <name>Utilities</name>
     </assembly>
     <members>
-        <member name="T:Mentula.Utilities.Collections.ArrayEnumerable`1">
+        <member name="T:Mentula.Utilities.Core.Collections.ArrayEnumerable`1">
             <summary>
             Defines a base class for IEnumerable types that use arrays.
             </summary>
             <typeparam name="T"> The type of elements. </typeparam>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayEnumerable`1.GetEnumerator">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerable`1.GetEnumerator">
             <summary>
             Returns an enumerator that iterates through a collection.
             </summary>
-            <returns> An <see cref="T:Mentula.Utilities.Collections.ArrayEnumerator`1"/> object that can be used to iterate through the collection. </returns>
+            <returns> An <see cref="T:Mentula.Utilities.Core.Collections.ArrayEnumerator`1"/> object that can be used to iterate through the collection. </returns>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayEnumerable`1.System#Collections#IEnumerable#GetEnumerator">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerable`1.System#Collections#IEnumerable#GetEnumerator">
             <summary>
             Returns an enumerator that iterates through a collection.
             </summary>
             <returns> An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection. </returns>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayEnumerable`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerable`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
             <summary>
             Returns an enumerator that iterates through a collection.
             </summary>
             <returns> An <see cref="T:System.Collections.Generic.IEnumerator`1"/> object that can be used to iterate through the collection. </returns>
         </member>
-        <member name="T:Mentula.Utilities.Collections.ArrayEnumerator`1">
+        <member name="T:Mentula.Utilities.Core.Collections.ArrayEnumerator`1">
             <summary>
             Defines an enumarator that can be used to iterate through a collection.
             </summary>
             <typeparam name="T"> The type of elements. </typeparam>
         </member>
-        <member name="P:Mentula.Utilities.Collections.ArrayEnumerator`1.Current">
+        <member name="P:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.Current">
             <summary>
             Gets the element in the collection at the current position of the enumerator.
             </summary>
         </member>
-        <member name="P:Mentula.Utilities.Collections.ArrayEnumerator`1.System#Collections#IEnumerator#Current">
+        <member name="P:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.System#Collections#IEnumerator#Current">
             <summary>
             Gets the current element in the collection.
             </summary>
         </member>
-        <member name="P:Mentula.Utilities.Collections.ArrayEnumerator`1.Disposed">
+        <member name="P:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.Disposed">
             <summary>
-            Gets a value indicating if the <see cref="T:Mentula.Utilities.Collections.ArrayEnumerator`1"/> has beed disposed.
+            Gets a value indicating if the <see cref="T:Mentula.Utilities.Core.Collections.ArrayEnumerator`1"/> has beed disposed.
             </summary>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayEnumerator`1.#ctor(`0[])">
+        <member name="P:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.Disposing">
+            <inheritdoc/>
+        </member>
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.#ctor(`0[])">
             <summary>
-            Initializes a new instance of the <see cref="T:Mentula.Utilities.Collections.ArrayEnumerator`1"/> class with a specified array to use.
+            Initializes a new instance of the <see cref="T:Mentula.Utilities.Core.Collections.ArrayEnumerator`1"/> class with a specified array to use.
             </summary>
             <param name="source"></param>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayEnumerator`1.Dispose">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.Dispose">
             <summary>
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayEnumerator`1.MovePrevious">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.MovePrevious">
             <summary>
             Decrease the enumerator to the previous element of the collection.
             </summary>
@@ -70,7 +76,7 @@
             </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The enumerator was disposed before calling this method. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayEnumerator`1.MoveNext">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.MoveNext">
             <summary>
             Advances the enumerator to the next element of the collection.
             </summary>
@@ -80,30 +86,30 @@
             </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The enumerator was disposed before calling this method. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayEnumerator`1.Reset">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerator`1.Reset">
             <summary>
             Sets the enumerator to its initial position, wich is before the first element in the collection.
             </summary>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The enumerator was disposed before calling this method. </exception>
         </member>
-        <member name="T:Mentula.Utilities.Collections.ArrayEnumerator">
+        <member name="T:Mentula.Utilities.Core.Collections.ArrayEnumerator">
             <summary>
-            Contains functions for building <see cref="T:Mentula.Utilities.Collections.ArrayEnumerator`1"/>.
+            Contains functions for building <see cref="T:Mentula.Utilities.Core.Collections.ArrayEnumerator`1"/>.
             </summary>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayEnumerator.FromString(System.String)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayEnumerator.FromString(System.String)">
             <summary>
-            Creates a new <see cref="T:Mentula.Utilities.Collections.ArrayEnumerator`1"/> from a <see cref="T:System.String"/> source.
+            Creates a new <see cref="T:Mentula.Utilities.Core.Collections.ArrayEnumerator`1"/> from a <see cref="T:System.String"/> source.
             </summary>
             <param name="source"> The specific source. </param>
-            <returns> An <see cref="T:Mentula.Utilities.Collections.ArrayEnumerator`1"/>. </returns>
+            <returns> An <see cref="T:Mentula.Utilities.Core.Collections.ArrayEnumerator`1"/>. </returns>
         </member>
-        <member name="T:Mentula.Utilities.Collections.ArrayExtensions">
+        <member name="T:Mentula.Utilities.Core.Collections.ArrayExtensions">
             <summary>
             Defines frequently used functions on arrays.
             </summary>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.SByte[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.SByte[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -111,7 +117,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.Byte[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.Byte[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -119,7 +125,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.Int16[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.Int16[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -127,7 +133,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.Int32[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.Int32[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -135,7 +141,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.Int64[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.Int64[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -143,7 +149,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.UInt16[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.UInt16[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -151,7 +157,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.UInt32[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.UInt32[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -159,7 +165,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.UInt64[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.UInt64[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -167,7 +173,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.Decimal[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.Decimal[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -175,7 +181,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.Single[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.Single[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -183,7 +189,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Average(System.Double[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Average(System.Double[])">
             <summary>
             Returns the average of the specified numeric collection.
             </summary>
@@ -191,7 +197,7 @@
             <returns> The average of the collection as a <see cref="T:System.Single"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.SByte[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.SByte[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -199,7 +205,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.Byte[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.Byte[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -207,7 +213,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.Int16[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.Int16[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -215,7 +221,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.Int32[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.Int32[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -223,7 +229,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.Int64[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.Int64[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -231,7 +237,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.UInt16[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.UInt16[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -239,7 +245,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.UInt32[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.UInt32[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -247,7 +253,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.UInt64[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.UInt64[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -255,7 +261,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.Decimal[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.Decimal[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -263,7 +269,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.Single[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.Single[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -271,7 +277,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Max(System.Double[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Max(System.Double[])">
             <summary>
             Returns the biggest element of the specified numeric collection.
             </summary>
@@ -279,7 +285,7 @@
             <returns> The biggest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.SByte[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.SByte[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -287,7 +293,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.Byte[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.Byte[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -295,7 +301,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.Int16[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.Int16[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -303,7 +309,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.Int32[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.Int32[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -311,7 +317,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.Int64[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.Int64[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -319,7 +325,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.UInt16[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.UInt16[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -327,7 +333,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.UInt32[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.UInt32[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -335,7 +341,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.UInt64[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.UInt64[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -343,7 +349,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.Decimal[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.Decimal[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -351,7 +357,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.Single[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.Single[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -359,7 +365,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Min(System.Double[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Min(System.Double[])">
             <summary>
             Returns the smallest element of the specified numeric collection.
             </summary>
@@ -367,7 +373,7 @@
             <returns> The smallest element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.SByte[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.SByte[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -375,7 +381,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.Byte[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.Byte[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -383,7 +389,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.Int16[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.Int16[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -391,7 +397,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.Int32[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.Int32[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -399,7 +405,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.Int64[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.Int64[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -407,7 +413,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.UInt16[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.UInt16[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -415,7 +421,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.UInt32[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.UInt32[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -423,7 +429,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.UInt64[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.UInt64[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -431,7 +437,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.Decimal[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.Decimal[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -439,7 +445,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.Single[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.Single[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -447,7 +453,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sum(System.Double[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sum(System.Double[])">
             <summary>
             Returns the sum of elements of the specified numeric collection.
             </summary>
@@ -455,7 +461,7 @@
             <returns> The sum of all elements in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.All``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.All``1(``0[],System.Predicate{``0})">
             <summary>
             Returns whether all elements of a specified collection meet the specified criteria.
             </summary>
@@ -465,7 +471,7 @@
             <returns> <see langword="true"/> if all elements meet the criteria; otherwise <see langword="false"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Any``1(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Any``1(``0[])">
             <summary>
             Returns whether the collection contains at least 1 element.
             </summary>
@@ -474,7 +480,7 @@
             <returns> <see langword="true"/> of the collection contains at least 1 element; otherwise <see langword="false"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Any``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Any``1(``0[],System.Predicate{``0})">
             <summary>
             Returns whether at least 1 element of the collection meet the specified set of criteria.
             </summary>
@@ -484,7 +490,7 @@
             <returns> <see langword="true"/> if at least 1 element meets to criteria; otherwise <see langword="false"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Cast``2(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Cast``2(``0[])">
             <summary>
             Attempts to cast all elements of the source to a specified type.
             </summary>
@@ -495,7 +501,7 @@
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> One of the elements could not be casted to the result type. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.CastOrDefault``2(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.CastOrDefault``2(``0[])">
             <summary>
             Attempts to cast all elements of the source to a specified type,
             if this fails returns the default value of the result type.
@@ -509,7 +515,7 @@
             </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.CastOrSkip``2(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.CastOrSkip``2(``0[])">
             <summary>
             Attempts to cast all elements of the source to a specified type,
             if this fails skips the element.
@@ -520,7 +526,7 @@
             <returns> An array containing all of the element that were able to be casted the the result type. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Concat``1(``0[],``0)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Concat``1(``0[],``0)">
             <summary>
             Concatinates an element to the source collection.
             </summary>
@@ -530,7 +536,7 @@
             <returns> The collection after the element has been added. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Concat``1(``0[],``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Concat``1(``0[],``0[])">
             <summary>
             Concatinates two array's together.
             </summary>
@@ -540,7 +546,7 @@
             <returns> An array that contains all of the elements of the source and the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or collection was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Concat``1(``0[],``0[][])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Concat``1(``0[],``0[][])">
             <summary>
             Concatinates a source array with a specified amount of collections.
             </summary>
@@ -550,7 +556,7 @@
             <returns> An array that contains all of the elements of the source and the collections. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source, collections or an element in the collections was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Contains``1(``0[],``0)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Contains``1(``0[],``0)">
             <summary>
             Returns whether the collection contains a specified element.
             </summary>
@@ -561,7 +567,7 @@
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source array was <see langword="null"/>. </exception>
             <exception cref="T:System.NullReferenceException"> An item in the source array was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Contains``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Contains``1(``0[],System.Predicate{``0})">
             <summary>
             Return whether the collections contains a elements the meets the specified set of criteria.
             </summary>
@@ -571,7 +577,7 @@
             <returns> <see langword="true"/> when the collection contains an element that meets the criteria; otherwise <see langword="false"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Count``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Count``1(``0[],System.Predicate{``0})">
             <summary>
             Returns the amount of elements in the collection that meet the specfied set of criteria.
             </summary>
@@ -581,7 +587,7 @@
             <returns> The amount of elements in the collection that have met the specified set of criteria. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Copy``1(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Copy``1(``0[])">
             <summary>
             Return a copy of the source collection.
             </summary>
@@ -590,7 +596,7 @@
             <returns> A copy of the source collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.First``1(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.First``1(``0[])">
             <summary>
             Returns the first element in the collection.
             </summary>
@@ -599,7 +605,7 @@
             <returns> The first element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.First``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.First``1(``0[],System.Predicate{``0})">
             <summary>
             Returns the first element in the collection that meets the specified set of criteria.
             </summary>
@@ -610,7 +616,7 @@
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> No element matches the specified set of criteria. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.FirstOrDefault``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.FirstOrDefault``1(``0[],System.Predicate{``0})">
             <summary>
             Returns the first element in the collection that meets the specified set of criteria,
             Iif no such element if found; return the default value of the source type.
@@ -624,7 +630,7 @@
             </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.IndexOf``1(``0[],``0)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.IndexOf``1(``0[],``0)">
             <summary>
             Returns the index of the specified element in the collection.
             </summary>
@@ -634,7 +640,7 @@
             <returns> The index of the specified value, if no such element is found; returns -1. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.IndexOf``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.IndexOf``1(``0[],System.Predicate{``0})">
             <summary>
             Return the index of the first element that meets the specified set of criteria.
             </summary>
@@ -644,7 +650,7 @@
             <returns> The index of the first element to meet the specified criteria; otherwise -1. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Last``1(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Last``1(``0[])">
             <summary>
             Returns the last element in the collection.
             </summary>
@@ -653,7 +659,7 @@
             <returns> The last element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Last``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Last``1(``0[],System.Predicate{``0})">
             <summary>
             Returns the last element in the collection that meets the specified criteria.
             </summary>
@@ -663,7 +669,7 @@
             <returns> The last element in the collection that meets the criteria. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.LastOrDefault``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.LastOrDefault``1(``0[],System.Predicate{``0})">
             <summary>
             Returns the last element in the collection that meets the specified criteria,
             if no such element if found; returns the default value of the source type.
@@ -677,7 +683,7 @@
             </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Populate``1(``0,System.Int32)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Populate``1(``0,System.Int32)">
             <summary>
             Populates a new collection with a specified length contains only the specified element. 
             </summary>
@@ -687,7 +693,7 @@
             <returns> A new collection populated only with the specified value. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> Count was smaller that zero. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Random``1(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Random``1(``0[])">
             <summary>
             Returns a random element in the collection.
             </summary>
@@ -696,7 +702,7 @@
             <returns> A random element in the collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Remove``1(``0[],``0)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Remove``1(``0[],``0)">
             <summary>
             Removes all elements equal to the specified value.
             </summary>
@@ -706,7 +712,7 @@
             <returns> The source whithout elements equal to the specified value. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.RemoveAt``1(``0[],System.Int32)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.RemoveAt``1(``0[],System.Int32)">
             <summary>
             Removes the element at the specified index.
             </summary>
@@ -716,7 +722,7 @@
             <returns> The source collection whithout the removed element. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.RemoveNull``1(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.RemoveNull``1(``0[])">
             <summary>
             Removes all elements equal to the default value of the source type.
             </summary>
@@ -725,7 +731,7 @@
             <returns> The source collection without the null (or default) values. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Reverse``1(``0[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Reverse``1(``0[])">
             <summary>
             Reverses the collection.
             </summary>
@@ -734,7 +740,7 @@
             <returns> The source with all elements reversed. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Select``2(``0[],System.Func{``0,``1})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Select``2(``0[],System.Func{``0,``1})">
             <summary>
             Gets a specific part of the elements in the collection.
             </summary>
@@ -745,7 +751,7 @@
             <returns> The specified part of the source collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Select``2(``0[],System.Func{``0,System.Int32,``1})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Select``2(``0[],System.Func{``0,System.Int32,``1})">
             <summary>
             Gets a specific part of the elements in the collection (also suplies the index of the current element).
             </summary>
@@ -756,7 +762,7 @@
             <returns> The specified part of the source collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Select``2(``0[],System.Func{``0,``1[]})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Select``2(``0[],System.Func{``0,``1[]})">
             <summary>
             Gets a specific part of the elements in the collection.
             </summary>
@@ -767,7 +773,7 @@
             <returns> The specified part of the source collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Select``2(``0[],System.Func{``0,System.Int32,``1[]})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Select``2(``0[],System.Func{``0,System.Int32,``1[]})">
             <summary>
             Gets a specific part of the elements in the collection (also suplies the index of the current element).
             </summary>
@@ -778,7 +784,7 @@
             <returns> The specified part of the source collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Sort``1(``0[],System.Func{``0,``0,System.Boolean})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Sort``1(``0[],System.Func{``0,``0,System.Boolean})">
             <summary>
             Performce a basic bubblesort on the collection (performace warning).
             </summary>
@@ -788,7 +794,7 @@
             <returns> A sorted version of the source collection. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the comparitor was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Where``1(``0[],System.Predicate{``0})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Where``1(``0[],System.Predicate{``0})">
             <summary>
             Gets all elements in the collection that meet the specified criteria.
             </summary>
@@ -798,7 +804,7 @@
             <returns> A collection containing only the elements that met the specified criteria. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Where``1(``0[],System.Func{``0,System.Int32,System.Boolean})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Where``1(``0[],System.Func{``0,System.Int32,System.Boolean})">
             <summary>
             Gets all elements in the collection that meet the specified criteria (also suplies the index of the current element).
             </summary>
@@ -808,7 +814,7 @@
             <returns> A collection containing only the elements that met the specified criteria. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.All(System.String,System.Predicate{System.Char})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.All(System.String,System.Predicate{System.Char})">
             <summary>
             Returns whether all elements of a specified <see cref="T:System.String"/> meet the specified criteria.
             </summary>
@@ -817,7 +823,7 @@
             <returns> <see langword="true"/> if all elements meet the criteria; otherwise <see langword="false"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Any(System.String,System.Predicate{System.Char})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Any(System.String,System.Predicate{System.Char})">
             <summary>
             Returns whether at least 1 element of the <see cref="T:System.String"/> meet the specified set of criteria.
             </summary>
@@ -826,7 +832,7 @@
             <returns> <see langword="true"/> if at least 1 element meets to criteria; otherwise <see langword="false"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.AppendIfNecessary(System.String,System.Char)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.AppendIfNecessary(System.String,System.Char)">
             <summary>
             Appends a specified <see cref="T:System.Char"/> to a <see cref="T:System.String"/> but only if is doesn't end with it already.
             </summary>
@@ -835,7 +841,7 @@
             <returns> The result <see cref="T:System.String"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.AppendIfNecessary(System.String,System.Char[],System.Char)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.AppendIfNecessary(System.String,System.Char[],System.Char)">
             <summary>
             Appends a specified <see cref="T:System.Char"/> to a <see cref="T:System.String"/>
             but only if it doesn't end with one of the valid suffixes already.
@@ -846,7 +852,7 @@
             <returns> The result <see cref="T:System.String"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Contains(System.String,System.Char)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Contains(System.String,System.Char)">
             <summary>
             Returns whether the <see cref="T:System.String"/> contains a specified element.
             </summary>
@@ -855,7 +861,7 @@
             <returns> <see langword="true"/> if the <see cref="T:System.String"/> contains an element that meets the set of criteria; otherwise <see langword="false"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source array was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Contains(System.String,System.Predicate{System.Char})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Contains(System.String,System.Predicate{System.Char})">
             <summary>
             Return whether the <see cref="T:System.String"/> contains a elements the meets the specified set of criteria.
             </summary>
@@ -864,7 +870,7 @@
             <returns> <see langword="true"/> when the <see cref="T:System.String"/> contains an element that meets the criteria; otherwise <see langword="false"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Count(System.String,System.Predicate{System.Char})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Count(System.String,System.Predicate{System.Char})">
             <summary>
             Returns the amount of elements in the <see cref="T:System.String"/> that meet the specfied set of criteria.
             </summary>
@@ -873,7 +879,7 @@
             <returns> The amount of elements in the <see cref="T:System.String"/> that have met the specified set of criteria. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.First(System.String)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.First(System.String)">
             <summary>
             Returns the first element in the <see cref="T:System.String"/>.
             </summary>
@@ -881,7 +887,7 @@
             <returns> The first element in the <see cref="T:System.String"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.First(System.String,System.Predicate{System.Char})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.First(System.String,System.Predicate{System.Char})">
             <summary>
             Returns the first element in the <see cref="T:System.String"/> that meets the specified set of criteria.
             </summary>
@@ -891,7 +897,7 @@
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> No element matches the specified set of criteria. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.FirstOrDefault(System.String,System.Predicate{System.Char})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.FirstOrDefault(System.String,System.Predicate{System.Char})">
             <summary>
             Returns the first element in the <see cref="T:System.String"/> that meets the specified set of criteria,
             Iif no such element if found; return '\0'.
@@ -904,7 +910,7 @@
             </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.IndexOf(System.String,System.Char)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.IndexOf(System.String,System.Char)">
             <summary>
             Returns the index of the specified element in the <see cref="T:System.String"/>.
             </summary>
@@ -913,7 +919,7 @@
             <returns> The index of the specified value, if no such element is found; returns -1. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.IndexOf(System.String,System.Predicate{System.Char})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.IndexOf(System.String,System.Predicate{System.Char})">
             <summary>
             Return the index of the first element that meets the specified set of criteria.
             </summary>
@@ -922,7 +928,7 @@
             <returns> The index of the first element to meet the specified criteria; otherwise -1. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Last(System.String)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Last(System.String)">
             <summary>
             Returns the last element in the <see cref="T:System.String"/>.
             </summary>
@@ -930,7 +936,7 @@
             <returns> The last element in the <see cref="T:System.String"/>. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Last(System.String,System.Predicate{System.Char})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Last(System.String,System.Predicate{System.Char})">
             <summary>
             Returns the last element in the <see cref="T:System.String"/> that meets the specified criteria.
             </summary>
@@ -939,7 +945,7 @@
             <returns> The last element in the <see cref="T:System.String"/> that meets the criteria. </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.LastOrDefault(System.String,System.Predicate{System.Char})">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.LastOrDefault(System.String,System.Predicate{System.Char})">
             <summary>
             Returns the last element in the <see cref="T:System.String"/> that meets the specified criteria,
             if no such element if found; returns '\0'.
@@ -952,7 +958,7 @@
             </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source or the selector was <see langword="null"/>. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.SplitAndKeep(System.String,System.Char[])">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.SplitAndKeep(System.String,System.Char[])">
             <summary>
             Splits a <see cref="T:System.String"/> into substrings that are based on the characters in an array (keeps the separators).
             </summary>
@@ -967,7 +973,7 @@
             </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.SplitAndKeep(System.String,System.Char[],System.Boolean,System.StringSplitOptions)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.SplitAndKeep(System.String,System.Char[],System.Boolean,System.StringSplitOptions)">
             <summary>
             Splits a <see cref="T:System.String"/> into substrings based on the characters in an array (keeps the separators).
             You can specify whether the substrings include empty array elements.
@@ -989,7 +995,7 @@
             <exception cref="T:System.ArgumentException"> option is not one of the <see cref="T:System.StringSplitOptions"/> values. </exception>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.SplitAndKeep(System.String,System.Char[],System.Boolean)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.SplitAndKeep(System.String,System.Char[],System.Boolean)">
             <summary>
             Splits a <see cref="T:System.String"/> into substrings based on the characters in an array (keeps the separators).
             </summary>
@@ -1005,7 +1011,7 @@
             </returns>
             <exception cref="T:Mentula.Utilities.Core.LoggedException"> The source was <see langword="null"/> or empty. </exception>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Remove(System.String,System.Char)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Remove(System.String,System.Char)">
             <summary>
             Removes all elements equal to the specified <see cref="T:System.Char"/> from the <see cref="T:System.String"/>.
             </summary>
@@ -1013,7 +1019,7 @@
             <param name="value"> The <see cref="T:System.Char"/> to be removed. </param>
             <returns> An <see cref="T:System.String"/> without the specified <see cref="T:System.Char"/>. </returns>
         </member>
-        <member name="M:Mentula.Utilities.Collections.ArrayExtensions.Remove(System.String,System.String)">
+        <member name="M:Mentula.Utilities.Core.Collections.ArrayExtensions.Remove(System.String,System.String)">
             <summary>
             Removes all substrings equal to the specified substring from the <see cref="T:System.String"/>.
             </summary>
@@ -1064,12 +1070,6 @@
             Whether the object is currently disposing.
             </summary>
         </member>
-        <member name="M:Mentula.Utilities.Core.IFullyDisposable.Dispose(System.Boolean)">
-            <summary>
-            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-            </summary>
-            <param name="disposing"> Whether unmanaged resources should be freeed. </param>
-        </member>
         <member name="T:Mentula.Utilities.Core.InvokeException">
             <summary>
             Represents errors that occur during event invokation.
@@ -1109,6 +1109,9 @@
             <param name="message"> The specific message. </param>
             <param name="tag"> The object that caused the exception. </param>
             <param name="inner"> The exception that caused this exception. </param>
+        </member>
+        <member name="M:Mentula.Utilities.Core.LoggedException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
         </member>
         <member name="M:Mentula.Utilities.Core.LoggedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <inheritdoc/>
@@ -1233,6 +1236,9 @@
             <param name="tag"> The object that caused the exception. </param>
             <param name="source"> The exception to use as a base. </param>
         </member>
+        <member name="M:Mentula.Utilities.Core.NoStackTraceException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
         <member name="M:Mentula.Utilities.Core.NoStackTraceException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <inheritdoc/>
         </member>
@@ -1302,6 +1308,7 @@
             Creates a new instance of the <see cref="T:Mentula.Utilities.Logging.ConsoleLogger"/> class with a specified output type.
             </summary>
             <param name="type"> The output type of the logger. </param>
+            <param name="suppressConsoleResize"> Specifies whether console buffer resize should be suppressed. </param>
         </member>
         <member name="M:Mentula.Utilities.Logging.ConsoleLogger.Finalize">
             <summary>
@@ -1317,7 +1324,10 @@
             <inheritdoc/>
         </member>
         <member name="M:Mentula.Utilities.Logging.ConsoleLogger.Dispose(System.Boolean)">
-            <inheritdoc/>
+            <summary>
+            Disposes the managed and unmanaged data of the <see cref="T:Mentula.Utilities.Logging.ConsoleLogger"/>.
+            </summary>
+            <param name="disposing"></param>
         </member>
         <member name="T:Mentula.Utilities.Logging.LogOutputType">
             <summary>
@@ -1399,7 +1409,7 @@
             Logs a exception with fatal priority.
             </summary>
             <param name="tag"> The tag of the caller. </param>
-            <param name="message"> The specified message to be logged. </param>
+            <param name="e"> The specified exception to be logged. </param>
         </member>
         <member name="M:Mentula.Utilities.Logging.Log.PopLog">
             <summary>
