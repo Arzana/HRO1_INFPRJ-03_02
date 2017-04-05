@@ -1,4 +1,5 @@
 NS:
-http://data.openov.nl/ns/
-https://www.npmjs.com/package/ns-api
-https://webservices.ns.nl/ns-api-avt?station=ut
+Stations: 	http://data.openov.nl/ns/
+Storingen:  	http://webservices.ns.nl/ns-api-storingen?station=ut
+Documentatie:	https://www.npmjs.com/package/ns-api
+Stations:	https://webservices.ns.nl/ns-api-avt?station=ut
