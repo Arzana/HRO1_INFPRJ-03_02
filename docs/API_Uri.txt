@@ -1,0 +1,4 @@
+NS:
+http://data.openov.nl/ns/
+https://www.npmjs.com/package/ns-api
+https://webservices.ns.nl/ns-api-avt?station=ut
