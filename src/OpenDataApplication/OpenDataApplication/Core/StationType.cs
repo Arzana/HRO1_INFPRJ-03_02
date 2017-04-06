@@ -2,6 +2,7 @@
 {
     public enum StationType : byte
     {
+        none,
         stoptreinstation,
         sneltreinstation,
         intercitystation,

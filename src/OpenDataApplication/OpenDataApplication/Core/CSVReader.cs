@@ -4,7 +4,7 @@
     using Mentula.Utilities.Logging;
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
+    using System.ComponentModel;
     using System.IO;
     using System.Runtime.Serialization;
 
@@ -12,7 +12,6 @@
     {
         private static int curLine;
         private static string[] curValues;
-        private static CultureInfo usenInfo = CultureInfo.CreateSpecificCulture("us-en");
 
         /// <summary>
         /// Gets a <see cref="List{T}"/> of <see cref="Station"/> from a specified file.
@@ -22,7 +21,31 @@
         /// <exception cref="LoggedException"> The file was not a .csv file. </exception>
         public static List<Station> GetStationsFromFile(string path)
         {
-            List<Station> result = new List<Station>();
+            return ReadTypeFromFile(path, (i, c) => new Station(i, c));
+        }
+
+        /// <summary>
+        /// Gets a <see cref="List{T}"/> of <see cref="Stop"/> from a specified file.
+        /// </summary>
+        /// <param name="path"> A absolute or relative path to the file. </param>
+        /// <returns> A list of readable stops in the file. </returns>
+        /// <exception cref="LoggedException"> The file was not a .csv file. </exception>
+        public static List<Stop> GetStopsFromFile(string path)
+        {
+            return ReadTypeFromFile(path, (i, c) => new Stop(i, c));
+        }
+
+        /// <summary>
+        /// Reads specified types from a specified file.
+        /// </summary>
+        /// <typeparam name="T"> The type attempt to serialize to. </typeparam>
+        /// <param name="path"> A absolute or relative path to the file. </param>
+        /// <param name="ctor"> A function to user as the types constructor. </param>
+        /// <returns> A list of serialized objects. </returns>
+        private static List<T> ReadTypeFromFile<T>(string path, Func<SerializationInfo, StreamingContext, T> ctor)
+            where T : ISerializable, new()
+        {
+            List<T> result = new List<T>();
             curLine = 0;
 
             LoggedException.RaiseIf(!path.EndsWith(".csv"), nameof(CSVReader),
@@ -40,10 +63,8 @@
                         ++curLine;
                         curValues = line.Split(';');
 
-
-                        Station cur;
-                        if (ReadStation(out cur)) result.Add(cur);
-                        else Log.Error(nameof(CSVReader), $"Unable to read station at line {curLine}, station skipped");
+                        T cur;
+                        if (DeserializeType(line, ctor, out cur)) result.Add(cur);
                     }
 
                     Log.Info(nameof(CSVReader), $"File contains {result.Count} readable entries");
@@ -58,82 +79,59 @@
             return result;
         }
 
-        private static bool ReadStation(out Station value)
+        /// <summary>
+        /// Deserializes a line to a specified type.
+        /// </summary>
+        /// <typeparam name="T"> The type to desirialize to. </typeparam>
+        /// <param name="line"> The line to user as the source. </param>
+        /// <param name="ctor"> A function to user as the types constructor. </param>
+        /// <param name="value"> The result value of the deserialization (default(T) if failed). </param>
+        /// <returns> Whether the deserialization has succeeded. </returns>
+        private static bool DeserializeType<T>(string line, Func<SerializationInfo, StreamingContext, T> ctor, out T value)
+            where T : ISerializable, new()
         {
-            bool parsingFailed = false;
-            short id;
-            int uic;
-            StationType type;
-            double geo_lat;
-            double geo_lng;
+            value = default(T);
 
-            if (!TryParseId(out id)) parsingFailed = true;
-            if (!TryParseUIC(out uic)) parsingFailed = true;
-            if (!TryParseStationType(out type)) parsingFailed = true;
-            if (!TryParseGeoLat(out geo_lat)) parsingFailed = true;
-            if (!TryParseGeoLng(out geo_lng)) parsingFailed = true;
-
-            if (parsingFailed)
+            try
             {
-                value = null;
+                StreamingContext context = new StreamingContext();
+                FormatterConverter formatConverter = new FormatterConverter();
+
+                SerializationInfo objInfo = new SerializationInfo(typeof(T), formatConverter);
+                SerializationInfo resultInfo = new SerializationInfo(typeof(T), formatConverter);
+                new T().GetObjectData(objInfo, context);
+
+                string[] rawValues = line.Split(';');
+                if (rawValues.Length != objInfo.MemberCount) return false;
+
+                int i = 0;
+                bool failed = false;
+                foreach (SerializationEntry entry in objInfo)
+                {
+                    if (entry.ObjectType == typeof(double) || entry.ObjectType == typeof(float)) rawValues[i] = rawValues[i].Replace(',', '.');
+                    try
+                    {
+                        TypeConverter converter = null;
+                        failed = failed || !ExtraTypeDescriptor.GetFromString(entry.ObjectType, out converter);
+                        if (!failed) resultInfo.AddValue(entry.Name, converter.ConvertFromString(rawValues[i++]));
+                    }
+                    catch (Exception)
+                    {
+                        failed = true;
+                        Log.Warning(nameof(CSVReader), $"Unable to read {entry.Name} at line {curLine} (cannot change {rawValues[i - 1]} into {entry.ObjectType})");
+                    }
+                }
+
+                if (failed) return false;
+
+                value = ctor(resultInfo, context);
+                return true;
+            }
+            catch (Exception)
+            {
+                Log.Error(nameof(CSVReader), $"Unable to read {typeof(T).Name} at line {curLine}, station skipped");
                 return false;
             }
-
-            SerializationInfo info = new SerializationInfo(typeof(Station), new FormatterConverter());
-            info.AddValue("id", id);
-            info.AddValue("code", curValues[1].ToUpper());
-            info.AddValue("uic", uic);
-            info.AddValue("naam", curValues[3]);
-            info.AddValue("middel_naam", curValues[4]);
-            info.AddValue("korte_naam", curValues[5]);
-            info.AddValue("friendly", curValues[6]);
-            info.AddValue("land", curValues[7].ToUpper());
-            info.AddValue("type", type);
-            info.AddValue("geo_lat", geo_lat);
-            info.AddValue("geo_lng", geo_lng);
-
-            value = new Station(info, new StreamingContext());
-            return true;
-        }
-
-        private static bool TryParseId(out short value)
-        {
-            bool result = short.TryParse(curValues[0], out value);
-            if (!result) LogLineWarning("Id (Int16)");
-            return result;
-        }
-
-        private static bool TryParseUIC(out int value)
-        {
-            bool result = int.TryParse(curValues[2], out value);
-            if (!result) LogLineWarning("UIC (Int32)");
-            return result;
-        }
-
-        private static bool TryParseStationType(out StationType value)
-        {
-            bool result = Enum.TryParse(curValues[8], out value);
-            if (!result) LogLineWarning("Type (StationType)");
-            return result;
-        }
-
-        private static bool TryParseGeoLat(out double value)
-        {
-            bool result = double.TryParse(curValues[9], NumberStyles.AllowDecimalPoint, usenInfo, out value);
-            if (!result) LogLineWarning("Geo_Lat (Float)");
-            return result;
-        }
-
-        private static bool TryParseGeoLng(out double value)
-        {
-            bool result = double.TryParse(curValues[10], NumberStyles.AllowDecimalPoint, usenInfo, out value);
-            if (!result) LogLineWarning("Geo_Lng (Float)");
-            return result;
-        }
-
-        private static void LogLineWarning(string collumn)
-        {
-            Log.Warning(nameof(CSVReader), $"Could not read {collumn} in line {curLine}");
         }
     }
 }
