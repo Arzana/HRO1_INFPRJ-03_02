@@ -1308,7 +1308,7 @@
             Creates a new instance of the <see cref="T:Mentula.Utilities.Logging.ConsoleLogger"/> class with a specified output type.
             </summary>
             <param name="type"> The output type of the logger. </param>
-            <param name="suppressConsoleResize"> Specifies whether console buffer resize should be suppressed. </param>
+            <param name="suppressConsoleResize"> Whether to suppress the console buffer from getting resized. </param>
         </member>
         <member name="M:Mentula.Utilities.Logging.ConsoleLogger.Finalize">
             <summary>
@@ -1409,7 +1409,7 @@
             Logs a exception with fatal priority.
             </summary>
             <param name="tag"> The tag of the caller. </param>
-            <param name="e"> The specified exception to be logged. </param>
+            <param name="e"> The specified message to be logged. </param>
         </member>
         <member name="M:Mentula.Utilities.Logging.Log.PopLog">
             <summary>
