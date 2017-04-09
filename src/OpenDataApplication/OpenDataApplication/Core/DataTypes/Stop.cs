@@ -1,4 +1,4 @@
-﻿namespace OpenDataApplication.Core
+﻿namespace OpenDataApplication.Core.DataTypes
 {
     using GMap.NET;
     using System.Diagnostics;
@@ -22,6 +22,10 @@
         /// The position in latitude and longitude.
         /// </summary>
         public PointLatLng Position { get; private set; }
+        /// <summary>
+        /// The type of stop.
+        /// </summary>
+        public StopType Type { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Stop"/> class with default values.
@@ -31,6 +35,7 @@
             Name = string.Empty;
             Description = string.Empty;
             Position = new PointLatLng();
+            SetType();
         }
 
         /// <summary>
@@ -43,6 +48,7 @@
             Name = info.GetString("name");
             Description = info.GetString("desc");
             Position = new PointLatLng(info.GetDouble("latitude"), info.GetDouble("longitude"));
+            SetType();
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -51,6 +57,16 @@
             info.AddValue("desc", Description);
             info.AddValue("latitude", Position.Lat);
             info.AddValue("longitude", Position.Lng);
+        }
+
+        private void SetType()
+        {
+            string desc = Description.ToUpper();
+            if (desc.Contains("BUS")) Type = StopType.Bus;
+            else if (desc.Contains("METRO")) Type = StopType.Metro;
+            else if (desc.Contains("TRAM")) Type = StopType.Tram;
+            else if (desc.Contains("FERRY")) Type = StopType.Ferry;
+            else Type = StopType.Undefined;
         }
     }
 }

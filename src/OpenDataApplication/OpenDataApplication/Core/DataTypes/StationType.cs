@@ -1,4 +1,4 @@
-﻿namespace OpenDataApplication.Core
+﻿namespace OpenDataApplication.Core.DataTypes
 {
     public enum StationType : byte
     {

@@ -1,4 +1,4 @@
-﻿namespace OpenDataApplication.Core
+﻿namespace OpenDataApplication.Core.DataTypes
 {
     using GMap.NET;
     using System.Diagnostics;
