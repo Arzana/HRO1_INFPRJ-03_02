@@ -97,6 +97,51 @@
         {
             GMapOverlay overlay = new GMapOverlay("Polygon");
 
+            List<Station> stations = CSVReader.GetStationsFromFile("..\\..\\..\\..\\Third-Party\\Data\\stations-nl-2015-08.csv");
+            List<Stop> stops = CSVReader.GetStopsFromFile("..\\..\\..\\..\\Third-Party\\Data\\RET-haltebestand.csv");
+            PointLatLng Stopclosest = new PointLatLng(0,0);
+            double StopdifCoor = 1000000;
+            PointLatLng Stationclosest = new PointLatLng(0, 0);
+            double StationdifCoor = 1000000;
+            PointLatLng Drawer = new PointLatLng(0, 0);
+
+            for (int i = 0; i < stops.Count; i++)
+            {
+                Stop cur = stops[i];
+                double difLat = Math.Abs(cur.Position.Lat - point.Lat);
+                double difLng = Math.Abs(cur.Position.Lng - point.Lng);
+                double InnerdifCoor = difLng + difLat;
+                if(InnerdifCoor < StopdifCoor)
+                {
+                    StopdifCoor = InnerdifCoor;
+                    InnerdifCoor = 0;
+                    Stopclosest = new PointLatLng(cur.Position.Lat, cur.Position.Lng);
+                }
+            }
+
+            for (int i = 0; i < stations.Count; i++)
+            {
+                Station cur = stations[i];
+                double difLat = Math.Abs(cur.Position.Lat - point.Lat);
+                double difLng = Math.Abs(cur.Position.Lng - point.Lng);
+                double InnerdifCoor = difLng + difLat;
+                if (InnerdifCoor < StationdifCoor)
+                {
+                    StationdifCoor = InnerdifCoor;
+                    InnerdifCoor = 0;
+                    Stationclosest = new PointLatLng(cur.Position.Lat, cur.Position.Lng);
+                }
+            }
+
+            if (StationdifCoor > StopdifCoor)
+            {
+                Drawer = Stopclosest;
+            }
+            else if (StationdifCoor < StopdifCoor)
+            {
+                Drawer = Stationclosest;
+            }
+
             List<PointLatLng> points = new List<PointLatLng>();
 
             double seg = Math.PI * 2 / 100;
@@ -105,8 +150,8 @@
             for (int i = 0; i < 100; i++)
             {
                 double theta = seg * i;
-                double a = point.Lat + Math.Cos(theta) * radius;
-                double b = point.Lng + Math.Sin(theta) * (radius * 1.7);
+                double a = Drawer.Lat + Math.Cos(theta) * radius;
+                double b = Drawer.Lng + Math.Sin(theta) * (radius * 1.7);
 
                 PointLatLng drawpoint = new PointLatLng(a, b);
 
@@ -129,7 +174,6 @@
                 double lang = map.FromLocalToLatLng(e.X, e.Y).Lng;
                 PointLatLng point = new PointLatLng(lat, lang);
                 InitializePolygonLayer(point);
-
             }
         }
 
@@ -137,7 +181,6 @@
         {
             map.BoundsOfMap = map.GetRectOfAllMarkers("Stations");
             map.Zoom = 12;
-            //Mentula.Utilities.Threading.ThreadBuilder.RunInBackground(gm1_MouseDoubleClick());
         }
     }
 }
