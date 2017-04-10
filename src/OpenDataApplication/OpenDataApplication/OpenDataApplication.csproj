@@ -61,6 +61,7 @@
     <Compile Include="Core\CSVReader.cs" />
     <Compile Include="Core\EnumTypeConverter.cs" />
     <Compile Include="Core\ExtraTypeDescriptor.cs" />
+    <Compile Include="Core\HttpHeader.cs" />
     <Compile Include="Core\Station.cs" />
     <Compile Include="Core\StationType.cs" />
     <Compile Include="Core\Stop.cs" />
