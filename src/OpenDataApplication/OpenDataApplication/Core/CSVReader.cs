@@ -7,13 +7,20 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Globalization;
     using System.IO;
     using System.Runtime.Serialization;
+    using System.Windows.Forms;
 
     public static class CSVReader
     {
         private static int curLine;
         private static string[] curValues;
+
+        static CSVReader()
+        {
+            Application.CurrentCulture = CultureInfo.CreateSpecificCulture("en-us");
+        }
 
         /// <summary>
         /// Gets a <see cref="List{T}"/> of <see cref="Station"/> from a specified file.

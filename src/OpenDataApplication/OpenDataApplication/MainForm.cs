@@ -55,6 +55,7 @@
                 Stop cur = stops[i];
                 Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
                 overlay.Markers.Add(new RETMarker(cur));
+
             }
 
             map.Overlays.Add(overlay);
