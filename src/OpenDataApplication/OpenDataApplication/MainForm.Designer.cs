@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.map = new GMap.NET.WindowsForms.GMapControl();
+            this.map.MouseClick += MouseClicker;
             this.SuspendLayout();
             // 
             // map

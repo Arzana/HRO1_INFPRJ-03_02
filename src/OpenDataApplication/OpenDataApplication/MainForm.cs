@@ -2,6 +2,7 @@
 {
     using Core;
     using System;
+    using System.Drawing;
     using System.Collections.Generic;
     using System.Windows.Forms;
     using GMap.NET.WindowsForms;
@@ -92,10 +93,51 @@
             map.Overlays.Add(overlay);
         }
 
+        private void InitializePolygonLayer(PointLatLng point)
+        {
+            GMapOverlay overlay = new GMapOverlay("Polygon");
+
+            List<PointLatLng> points = new List<PointLatLng>();
+
+            double seg = Math.PI * 2 / 100;
+            double radius = 0.1;
+
+            for (int i = 0; i < 100; i++)
+            {
+                double theta = seg * i;
+                double a = point.Lat + Math.Cos(theta) * radius;
+                double b = point.Lng + Math.Sin(theta) * (radius * 1.7);
+
+                PointLatLng drawpoint = new PointLatLng(a, b);
+
+                points.Add(drawpoint);
+            }
+            
+            GMapPolygon polygon = new GMapPolygon(points, "Region");
+            polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Red));
+            polygon.Stroke = new Pen(Color.Red, 1);
+            overlay.Polygons.Add(polygon);
+            map.Overlays.Add(overlay);
+        }
+
+        private void MouseClicker(object sender, MouseEventArgs e)
+        {
+
+            if (e.Button == MouseButtons.Left)
+            {
+                double lat = map.FromLocalToLatLng(e.X, e.Y).Lat;
+                double lang = map.FromLocalToLatLng(e.X, e.Y).Lng;
+                PointLatLng point = new PointLatLng(lat, lang);
+                InitializePolygonLayer(point);
+
+            }
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             map.BoundsOfMap = map.GetRectOfAllMarkers("Stations");
             map.Zoom = 12;
+            //Mentula.Utilities.Threading.ThreadBuilder.RunInBackground(gm1_MouseDoubleClick());
         }
     }
 }
