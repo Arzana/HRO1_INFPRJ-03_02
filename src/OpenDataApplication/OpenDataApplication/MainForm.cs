@@ -19,6 +19,7 @@
             InitializeBaseMap();
             InitializeStationLayer();
             InitializeStopLayer();
+            
         }
 
         private void InitializeBaseMap()
@@ -93,9 +94,13 @@
             map.Overlays.Add(overlay);
         }
 
-        private void InitializePolygonLayer(PointLatLng point)
-        {
-            GMapOverlay overlay = new GMapOverlay("Polygon");
+        private List<PointLatLng> points = new List<PointLatLng>();
+
+        private GMapOverlay InitializePolygonLayer(PointLatLng point, GMapOverlay PolyOverlay)
+        {           
+            overlay.Polygons.Clear();
+            map.Overlays.Remove(PolyOverlay);
+            points.Clear();
 
             List<Station> stations = CSVReader.GetStationsFromFile("..\\..\\..\\..\\Third-Party\\Data\\stations-nl-2015-08.csv");
             List<Stop> stops = CSVReader.GetStopsFromFile("..\\..\\..\\..\\Third-Party\\Data\\RET-haltebestand.csv");
@@ -104,6 +109,8 @@
             PointLatLng Stationclosest = new PointLatLng(0, 0);
             double StationdifCoor = 1000000;
             PointLatLng Drawer = new PointLatLng(0, 0);
+
+            
 
             for (int i = 0; i < stops.Count; i++)
             {
@@ -142,10 +149,8 @@
                 Drawer = Stationclosest;
             }
 
-            List<PointLatLng> points = new List<PointLatLng>();
-
-            double seg = Math.PI * 2 / 100;
             double radius = 0.1;
+            double seg = Math.PI * 2 / (radius * 1000);
 
             for (int i = 0; i < 100; i++)
             {
@@ -160,20 +165,29 @@
             
             GMapPolygon polygon = new GMapPolygon(points, "Region");
             polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Red));
-            polygon.Stroke = new Pen(Color.Red, 1);
+            polygon.Stroke = new Pen(Color.FromArgb(50, Color.Red));
             overlay.Polygons.Add(polygon);
             map.Overlays.Add(overlay);
+
+            return overlay;
+
         }
+
+        private GMapOverlay overlay = new GMapOverlay("Polygon");
 
         private void MouseClicker(object sender, MouseEventArgs e)
         {
 
             if (e.Button == MouseButtons.Left)
             {
+                PointLatLng quickpoint = new PointLatLng(-100.0, -100.0);
+                overlay = InitializePolygonLayer(quickpoint, overlay);
+                overlay.Polygons.Clear();
+                map.Overlays.Remove(overlay);
                 double lat = map.FromLocalToLatLng(e.X, e.Y).Lat;
                 double lang = map.FromLocalToLatLng(e.X, e.Y).Lng;
-                PointLatLng point = new PointLatLng(lat, lang);
-                InitializePolygonLayer(point);
+                PointLatLng clickpoint = new PointLatLng(lat, lang);
+                overlay = InitializePolygonLayer(clickpoint, overlay);
             }
         }
 
