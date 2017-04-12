@@ -35,12 +35,14 @@
             GMapOverlay overlay = new GMapOverlay("Stations");
             List<Station> stations = CSVReader.GetStationsFromFile($"stations-nl-2015-08.csv");
 
+            Log.Info(nameof(stations), $"Starting adding {stations.Count} station markers");
             for (int i = 0; i < stations.Count; i++)
             {
                 Station cur = stations[i];
                 Log.Debug(nameof(stations), $"Adding station {cur.FriendlyName}");
                 overlay.Markers.Add(new NSMarker(cur.Position));
             }
+            Log.Info(nameof(stations), $"Finished adding station markers");
 
             map.Overlays.Add(overlay);
         }
@@ -50,13 +52,14 @@
             GMapOverlay overlay = new GMapOverlay("Stops");
             List<Stop> stops = CSVReader.GetStopsFromFile($"RET-haltebestand.csv");
 
+            Log.Info(nameof(stops), $"Started adding {stops.Count} stop markers");
             for (int i = 0; i < stops.Count; i++)
             {
                 Stop cur = stops[i];
                 Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
                 overlay.Markers.Add(new RETMarker(cur));
-
             }
+            Log.Info(nameof(stops), $"Finished adding stop markers");
 
             map.Overlays.Add(overlay);
         }

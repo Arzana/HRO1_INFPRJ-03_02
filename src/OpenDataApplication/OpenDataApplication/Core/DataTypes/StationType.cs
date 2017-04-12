@@ -2,14 +2,14 @@
 {
     public enum StationType : byte
     {
-        none,
-        stoptreinstation,
-        sneltreinstation,
-        intercitystation,
-        knooppuntstoptreinstation,
-        knooppuntsneltreinstation,
-        knooppuntintercitystation,
-        megastation,
-        facultatiefstation
+        None,
+        StoptreinStation,
+        SneltreinStation,
+        IntercityStation,
+        KnooppuntStoptreinStation,
+        KnooppuntSneltreinStation,
+        KnooppuntIntercityStation,
+        MegaStation,
+        FacultatiefStation
     }
 }

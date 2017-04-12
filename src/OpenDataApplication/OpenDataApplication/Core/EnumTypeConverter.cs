@@ -18,7 +18,7 @@
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (CanConvertFrom(value.GetType())) return Enum.Parse(typeof(TEnum), (string)value);
+            if (CanConvertFrom(value.GetType())) return Enum.Parse(typeof(TEnum), (string)value, true);
             else return base.ConvertFrom(context, culture, value);
         }
     }

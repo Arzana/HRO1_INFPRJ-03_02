@@ -64,7 +64,7 @@
             ShortName = string.Empty;
             FriendlyName = string.Empty;
             CountryCode = string.Empty;
-            Type = StationType.none;
+            Type = StationType.None;
             Position = new PointLatLng();
         }
 
