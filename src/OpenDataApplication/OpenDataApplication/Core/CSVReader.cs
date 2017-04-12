@@ -1,7 +1,9 @@
 ﻿namespace OpenDataApplication.Core
 {
+    using DataTypes;
     using Mentula.Utilities.Core;
     using Mentula.Utilities.Logging;
+    using Properties;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -46,23 +48,24 @@
         /// Reads specified types from a specified file.
         /// </summary>
         /// <typeparam name="T"> The type attempt to serialize to. </typeparam>
-        /// <param name="path"> A absolute or relative path to the file. </param>
+        /// <param name="fileName"> A absolute or relative path to the file. </param>
         /// <param name="ctor"> A function to user as the types constructor. </param>
         /// <returns> A list of serialized objects. </returns>
-        private static List<T> ReadTypeFromFile<T>(string path, Func<SerializationInfo, StreamingContext, T> ctor)
+        private static List<T> ReadTypeFromFile<T>(string fileName, Func<SerializationInfo, StreamingContext, T> ctor)
             where T : ISerializable, new()
         {
+            fileName = $"{Settings.Default.DataDirectory}{fileName}";
             List<T> result = new List<T>();
             curLine = 0;
 
-            LoggedException.RaiseIf(!path.EndsWith(".csv"), nameof(CSVReader),
-                $"Cannot open file with extension {Path.GetExtension(path)}, supply .csv file");
+            LoggedException.RaiseIf(!fileName.EndsWith(".csv"), nameof(CSVReader),
+                $"Cannot open file with extension {Path.GetExtension(fileName)}, supply .csv file");
 
             try
             {
-                using (StreamReader sr = new StreamReader(path))
+                using (StreamReader sr = new StreamReader(fileName))
                 {
-                    Log.Verbose(nameof(CSVReader), $"Started parsing file: {Path.GetFullPath(path)}");
+                    Log.Verbose(nameof(CSVReader), $"Started parsing file: {Path.GetFullPath(fileName)}");
 
                     string line;
                     while ((line = sr.ReadLine()) != null)
@@ -79,10 +82,10 @@
             }
             catch (Exception e)
             {
-                Log.Fatal(nameof(CSVReader), new FileLoadException($"An unhandled exception was raised during the processing of file: {Path.GetFullPath(path)}", e));
+                Log.Fatal(nameof(CSVReader), new FileLoadException($"An unhandled exception was raised during the processing of file: {Path.GetFullPath(fileName)}", e));
             }
 
-            Log.Verbose(nameof(CSVReader), $"Finished parsing file: {Path.GetFullPath(path)}");
+            Log.Verbose(nameof(CSVReader), $"Finished parsing file: {Path.GetFullPath(fileName)}");
             return result;
         }
 
