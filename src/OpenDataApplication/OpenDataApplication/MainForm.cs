@@ -95,12 +95,14 @@
         }
 
         private List<PointLatLng> points = new List<PointLatLng>();
+        private List<PointLatLng> Gpoints = new List<PointLatLng>();
 
         private GMapOverlay InitializePolygonLayer(PointLatLng point, GMapOverlay PolyOverlay)
         {           
             overlay.Polygons.Clear();
             map.Overlays.Remove(PolyOverlay);
             points.Clear();
+            Gpoints.Clear();
 
             List<Station> stations = CSVReader.GetStationsFromFile("..\\..\\..\\..\\Third-Party\\Data\\stations-nl-2015-08.csv");
             List<Stop> stops = CSVReader.GetStopsFromFile("..\\..\\..\\..\\Third-Party\\Data\\RET-haltebestand.csv");
@@ -149,8 +151,9 @@
                 Drawer = Stationclosest;
             }
 
-            double radius = 0.1;
-            double seg = Math.PI * 2 / (radius * 1000);
+            double radius = 0.01;
+            double Gradius = 0.005;
+            double seg = Math.PI * 2 / (radius * 10000);
 
             for (int i = 0; i < 100; i++)
             {
@@ -162,11 +165,28 @@
 
                 points.Add(drawpoint);
             }
-            
+
+            for (int i = 0; i < 100; i++)
+            {
+                double theta = seg * i;
+                double a = Drawer.Lat + Math.Cos(theta) * Gradius;
+                double b = Drawer.Lng + Math.Sin(theta) * (Gradius * 1.7);
+
+                PointLatLng Gdrawpoint = new PointLatLng(a, b);
+
+                Gpoints.Add(Gdrawpoint);
+            }
+
             GMapPolygon polygon = new GMapPolygon(points, "Region");
-            polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Red));
+            polygon.Fill = new SolidBrush(Color.FromArgb(30, Color.Red));
             polygon.Stroke = new Pen(Color.FromArgb(50, Color.Red));
             overlay.Polygons.Add(polygon);
+
+            GMapPolygon Gpolygon = new GMapPolygon(Gpoints, "Region");
+            Gpolygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Green));
+            Gpolygon.Stroke = new Pen(Color.FromArgb(50, Color.Green));
+            overlay.Polygons.Add(Gpolygon);
+
             map.Overlays.Add(overlay);
 
             return overlay;
