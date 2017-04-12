@@ -78,7 +78,12 @@
                 if (cur.Description.ToUpper().Contains("TRAM")) markerStyle = GMarkerGoogleType.blue;
                 else if (cur.Description.ToUpper().Contains("BUS")) markerStyle = GMarkerGoogleType.purple;
                 else if (cur.Description.ToUpper().Contains("METRO")) markerStyle = GMarkerGoogleType.pink;
-                else markerStyle = GMarkerGoogleType.black_small;
+                else if (cur.Description.ToUpper().Contains("FERRY")) markerStyle = GMarkerGoogleType.lightblue;
+                else
+                {
+                    Log.Info(nameof(stops), $"Unhandled stattion type: {cur.Description}");
+                    markerStyle = GMarkerGoogleType.black_small;
+                }
 
                 Log.Debug(nameof(stops), $"Adding stop {cur.Name} at {cur.Position}");
                 overlay.Markers.Add(new GMarkerGoogle(cur.Position, markerStyle));
