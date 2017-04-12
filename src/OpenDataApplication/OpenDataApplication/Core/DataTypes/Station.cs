@@ -3,12 +3,13 @@
     using GMap.NET;
     using System.Diagnostics;
     using System.Runtime.Serialization;
+    using System;
 
     /// <summary>
     /// Defines a NS Station
     /// </summary>
     [DebuggerDisplay("{FullName}({UIC}) at {Position}")]
-    public sealed class Station : ISerializable
+    public sealed class Station : ISerializable, IEquatable<Station>
     {
         /// <summary>
         /// Internal dutch station identity.
@@ -104,7 +105,24 @@
 
         public override string ToString()
         {
-            return FriendlyName;
+            return $"NS: {FriendlyName}";
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj.GetType() == typeof(Station) ? Equals((Station)obj) : false;
+        }
+
+        public bool Equals(Station other)
+        {
+            if (FullName == other.FullName)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

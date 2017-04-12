@@ -3,12 +3,13 @@
     using GMap.NET;
     using System.Diagnostics;
     using System.Runtime.Serialization;
+    using System;
 
     /// <summary>
     /// Defines a RET station (tram, bus, metro and boat)
     /// </summary>
     [DebuggerDisplay("{Name} at {Position}")]
-    public sealed class Stop : ISerializable
+    public sealed class Stop : ISerializable, IEquatable<Stop>
     {
         /// <summary>
         /// The name of the station.
@@ -71,8 +72,24 @@
 
         public override string ToString()
         {
-            return Name;
+            return $"{Type}: {Name}";
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj.GetType() == typeof(Stop) ? Equals((Stop)obj) : false;
+        }
+
+        public bool Equals(Stop other)
+        {
+            if (Name == other.Name && Type == other.Type)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -39,7 +39,7 @@
             for (int i = 0; i < stations.Count; i++)
             {
                 Station cur = stations[i];
-                if (cur.FullName.ToUpper().Contains("ROTTERDAM"))
+                if (cur.FullName.ToUpper().Contains("ROTTERDAM") && ( !comboBox1.Items.Contains(cur)))
                 {
                     Log.Debug(nameof(stations), $"Adding station {cur.FriendlyName}");
                     overlay.Markers.Add(new NSMarker(cur.Position));
@@ -61,10 +61,13 @@
             for (int i = 0; i < stops.Count; i++)
             {
                 Stop cur = stops[i];
-                Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
-                overlay.Markers.Add(new RETMarker(cur));
-                comboBox1.Items.Add(cur);
-                comboBox2.Items.Add(cur);
+                if (!comboBox1.Items.Contains(cur))
+                {
+                    Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
+                    overlay.Markers.Add(new RETMarker(cur));
+                    comboBox1.Items.Add(cur);
+                    comboBox2.Items.Add(cur);
+                }
             }
             Log.Info(nameof(stops), $"Finished adding stop markers");
                         
