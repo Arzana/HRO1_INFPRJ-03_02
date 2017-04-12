@@ -118,7 +118,7 @@
                 bool failed = false;
                 foreach (SerializationEntry entry in objInfo)
                 {
-                    if (entry.ObjectType == typeof(double) || entry.ObjectType == typeof(float)) rawValues[i] = rawValues[i].Replace('.', ',');
+                    if (entry.ObjectType == typeof(double) || entry.ObjectType == typeof(float)) rawValues[i] = rawValues[i].Replace(',', '.');
                     try
                     {
                         TypeConverter converter = null;
