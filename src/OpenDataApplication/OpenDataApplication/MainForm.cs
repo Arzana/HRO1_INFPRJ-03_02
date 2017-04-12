@@ -44,6 +44,7 @@
                     Log.Debug(nameof(stations), $"Adding station {cur.FriendlyName}");
                     overlay.Markers.Add(new NSMarker(cur.Position));
                     comboBox1.Items.Add(cur);
+                    comboBox2.Items.Add(cur);
                 }
             }
             Log.Info(nameof(stations), $"Finished adding station markers");
@@ -62,9 +63,11 @@
                 Stop cur = stops[i];
                 Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
                 overlay.Markers.Add(new RETMarker(cur));
+                comboBox1.Items.Add(cur);
+                comboBox2.Items.Add(cur);
             }
             Log.Info(nameof(stops), $"Finished adding stop markers");
-
+                        
             map.Overlays.Add(overlay);
         }
 
@@ -75,6 +78,25 @@
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Station selectedStation = (sender as ComboBox)?.SelectedItem as Station;
+            if (selectedStation != null)
+            {
+                label3.Text = selectedStation.Type.ToString();
+                map.Position = selectedStation.Position;
+            }
+            else
+            {
+                Stop selectedStop = (sender as ComboBox)?.SelectedItem as Stop;
+                if (selectedStop != null)
+                {
+                    label3.Text = selectedStop.Description;
+                    map.Position = selectedStop.Position;
+                }
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             Station selectedStation = (sender as ComboBox)?.SelectedItem as Station;
             if (selectedStation != null)

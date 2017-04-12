@@ -68,5 +68,11 @@
             else if (desc.Contains("FERRY")) Type = StopType.Ferry;
             else Type = StopType.Undefined;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
     }
 }
