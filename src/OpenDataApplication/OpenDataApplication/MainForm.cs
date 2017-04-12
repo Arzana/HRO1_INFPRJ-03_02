@@ -85,8 +85,8 @@
             points.Clear();
             Gpoints.Clear();
 
-            List<Station> stations = CSVReader.GetStationsFromFile("..\\..\\..\\..\\Third-Party\\Data\\stations-nl-2015-08.csv");
-            List<Stop> stops = CSVReader.GetStopsFromFile("..\\..\\..\\..\\Third-Party\\Data\\RET-haltebestand.csv");
+            List<Station> stations = CSVReader.GetStationsFromFile($"stations-nl-2015-08.csv");
+            List<Stop> stops = CSVReader.GetStopsFromFile($"RET-haltebestand.csv");
             PointLatLng Stopclosest = new PointLatLng(0,0);
             double StopdifCoor = 1000000;
             PointLatLng Stationclosest = new PointLatLng(0, 0);
