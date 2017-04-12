@@ -14,14 +14,23 @@ namespace OpenDataApplication.Core
 {
     class HttpHeader
     {
-        const string URL = "https://webservices.ns.nl/ns-api-avt?station=ut";
+        //const string URL = "https://webservices.ns.nl/ns-api-avt?station=ut";
         const string username = "0916827@hr.nl";
         const string password = "6qmg-XC7AH61Wz53i89ZC-bVSyab7QYTD6nS_Dx6wlLoMM_cFzzSXA";
 
 
-        public static XmlDocument webRequest()
+        public static string XmLcon(XmlDocument x)
         {
+            Console.WriteLine(x.InnerText);
+            return x.InnerText;
+        }
 
+
+
+
+
+        public static XmlDocument webRequest(string URL)
+        {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
             request.Method = WebRequestMethods.Http.Get;
             request.Credentials = new NetworkCredential(username, password);
@@ -33,7 +42,8 @@ namespace OpenDataApplication.Core
             XmlTextReader reader = new XmlTextReader(response.GetResponseStream());
             xmlDocu.Load(reader);
 
-            return(xmlDocu);
+            return (xmlDocu);
         }
+
     }
 }
