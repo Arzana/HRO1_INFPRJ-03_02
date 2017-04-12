@@ -39,8 +39,12 @@
             for (int i = 0; i < stations.Count; i++)
             {
                 Station cur = stations[i];
-                Log.Debug(nameof(stations), $"Adding station {cur.FriendlyName}");
-                overlay.Markers.Add(new NSMarker(cur.Position));
+                if (cur.FullName.ToUpper().Contains("ROTTERDAM"))
+                {
+                    Log.Debug(nameof(stations), $"Adding station {cur.FriendlyName}");
+                    overlay.Markers.Add(new NSMarker(cur.Position));
+                    comboBox1.Items.Add(cur);
+                }
             }
             Log.Info(nameof(stations), $"Finished adding station markers");
 
@@ -70,29 +74,23 @@
             map.Zoom = 12;
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            Station selectedStation = (sender as ComboBox)?.SelectedItem as Station;
+            if (selectedStation != null)
+            {
+                label3.Text = selectedStation.Type.ToString();
+                map.Position = selectedStation.Position;
+            }
+            else
+            {
+                Stop selectedStop = (sender as ComboBox)?.SelectedItem as Stop;
+                if (selectedStop != null)
+                {
+                    label3.Text = selectedStop.Description;
+                    map.Position = selectedStop.Position;
+                }
+            }
         }
     }
 }

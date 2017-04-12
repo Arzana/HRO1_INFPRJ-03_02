@@ -101,5 +101,10 @@
             info.AddValue("geo_lat", Position.Lat);
             info.AddValue("geo_lng", Position.Lng);
         }
+
+        public override string ToString()
+        {
+            return FriendlyName;
+        }
     }
 }
