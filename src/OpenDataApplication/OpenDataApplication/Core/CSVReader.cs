@@ -16,10 +16,12 @@
     {
         private static int curLine;
         private static string[] curValues;
+        private static FileCache cache;
 
         static CSVReader()
         {
             Application.CurrentCulture = CultureInfo.CreateSpecificCulture("en-us");
+            cache = new FileCache();
         }
 
         /// <summary>
@@ -28,9 +30,9 @@
         /// <param name="path"> A absolute or relative path to the file. </param>
         /// <returns> A list of readable stations in the file. </returns>
         /// <exception cref="LoggedException"> The file was not a .csv file. </exception>
-        public static List<Station> GetStationsFromFile(string path)
+        public static List<Station> GetStationsFromFile(string path, bool overrideCache = false)
         {
-            return ReadTypeFromFile(path, (i, c) => new Station(i, c));
+            return GetData(path, (i, c) => new Station(i, c), overrideCache);
         }
 
         /// <summary>
@@ -39,9 +41,31 @@
         /// <param name="path"> A absolute or relative path to the file. </param>
         /// <returns> A list of readable stops in the file. </returns>
         /// <exception cref="LoggedException"> The file was not a .csv file. </exception>
-        public static List<Stop> GetStopsFromFile(string path)
+        public static List<Stop> GetStopsFromFile(string path, bool overrideCache = false)
         {
-            return ReadTypeFromFile(path, (i, c) => new Stop(i, c));
+            return GetData(path, (i, c) => new Stop(i, c), overrideCache);
+        }
+
+        /// <summary>
+        /// Clears the stations and stops from the cache.
+        /// </summary>
+        public static void ClearCache()
+        {
+            cache.Clear();
+        }
+
+        private static List<T> GetData<T>(string path, Func<SerializationInfo, StreamingContext, T> ctor, bool overrideCache)
+            where T : ISerializable, new()
+        {
+            List<T> result;
+
+            if (!cache.TryGetPool(out result))
+            {
+                result = ReadTypeFromFile(path, ctor);
+                cache.AddPool(result, overrideCache);
+            }
+
+            return result;
         }
 
         /// <summary>

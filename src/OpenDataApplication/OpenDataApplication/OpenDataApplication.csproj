@@ -63,6 +63,7 @@
     <Compile Include="Core\DataTypes\StationType.cs" />
     <Compile Include="Core\DataTypes\Stop.cs" />
     <Compile Include="Core\DataTypes\StopType.cs" />
+    <Compile Include="Core\FileCache.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
