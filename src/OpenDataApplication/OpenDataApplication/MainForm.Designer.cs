@@ -49,6 +49,7 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cSVReaderBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormBindingSource)).BeginInit();
+            this.map.MouseClick += MouseClicker;
             this.SuspendLayout();
             // 
             // map
