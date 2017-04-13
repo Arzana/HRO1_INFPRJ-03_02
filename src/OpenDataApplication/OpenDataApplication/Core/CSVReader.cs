@@ -59,7 +59,7 @@
         {
             List<T> result;
 
-            if (!cache.TryGetPool(out result))
+            if (overrideCache || !cache.TryGetPool(out result))
             {
                 result = ReadTypeFromFile(path, ctor);
                 cache.AddPool(result, overrideCache);
