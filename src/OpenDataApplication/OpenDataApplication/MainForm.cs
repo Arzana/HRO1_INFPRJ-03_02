@@ -21,7 +21,7 @@
             InitializeBaseMap();
 
             InitializeStationLayer();
-            InitializeBusStopLayer();      // TODO: run on background thread.
+            InitializeStopLayer();      // TODO: run on background thread.
         }
 
         private void InitializeBaseMap()
@@ -54,7 +54,7 @@
             map.Overlays.Add(overlay);
         }
 
-        private void InitializeBusStopLayer()
+        private void InitializeStopLayer()
         {
             GMapOverlay Busoverlay = new GMapOverlay("BusStops");
             GMapOverlay Tramoverlay = new GMapOverlay("TramStops");
