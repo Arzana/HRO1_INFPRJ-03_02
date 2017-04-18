@@ -10,7 +10,8 @@
     public sealed class RETMarker : CustomMarker
     {
         private static readonly Image busImg = LoadImage("bus_icon.png");
-        private static readonly Image metroImg = LoadImage("ret_icon.png");
+        private static readonly Image metroImg = LoadImage("metro_icon.png");
+        private static readonly Image tramImg = LoadImage("tram_icon.png");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RETMarker"/> class from a specified stop.
@@ -29,7 +30,7 @@
                 case StopType.Metro:
                     return metroImg;
                 case StopType.Tram:
-                    return null;    // TODO: Add tram icon.
+                    return tramImg;
                 case StopType.Ferry:
                     return null;    // TODO: Add ferry icon.
                 case StopType.Undefined:

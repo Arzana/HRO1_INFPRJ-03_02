@@ -19,8 +19,8 @@
             InitializeComponent();
             InitializeBaseMap();
 
-            InitializeStationLayer();   // TODO: run on background thread.
-            InitializeStopLayer();      // TODO: run on background thread.
+            InitializeStationLayer();
+            InitializeStopLayer();
         }
 
         private void InitializeBaseMap()
