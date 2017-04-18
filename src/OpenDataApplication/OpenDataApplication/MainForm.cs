@@ -11,6 +11,7 @@
     using System.Drawing;
     using System.Collections.Generic;
     using System.Windows.Forms;
+    using System.Linq;
 
     public sealed partial class MainForm : Form
     {
@@ -234,6 +235,30 @@
                     map.Position = selectedStop.Position;
                 }
             }
+        }
+
+        private void Trein_CheckedChanged(object sender, EventArgs e)
+        {
+            //Trein
+            map.Overlays.First(o => o.Id == "Stations").IsVisibile = Trein.Checked;
+        }
+
+        private void Metro_CheckedChanged(object sender, EventArgs e)
+        {
+            //Metro
+
+        }
+
+        private void Tram_CheckedChanged(object sender, EventArgs e)
+        {
+            //Tram
+
+        }
+
+        private void Bus_CheckedChanged(object sender, EventArgs e)
+        {
+            //Bus
+
         }
     }
 }
