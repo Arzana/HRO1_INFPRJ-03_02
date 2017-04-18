@@ -179,6 +179,7 @@
             this.checkBox4.TabIndex = 3;
             this.checkBox4.Text = "Bus";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -190,6 +191,7 @@
             this.checkBox3.TabIndex = 2;
             this.checkBox3.Text = "Tram";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -201,6 +203,7 @@
             this.checkBox2.TabIndex = 1;
             this.checkBox2.Text = "Metro";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // checkBox1
             // 
@@ -212,6 +215,7 @@
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Trein";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // cSVReaderBindingSource
             // 
