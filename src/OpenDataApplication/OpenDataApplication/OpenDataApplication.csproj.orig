@@ -32,9 +32,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GMap.NET.Core">
       <HintPath>..\..\Third-Party\GMap\GMap.NET.Core.dll</HintPath>
@@ -62,10 +59,18 @@
     <Compile Include="Core\CustomMarker.cs" />
     <Compile Include="Core\EnumTypeConverter.cs" />
     <Compile Include="Core\ExtraTypeDescriptor.cs" />
+<<<<<<< HEAD
     <Compile Include="Core\DataTypes\Station.cs" />
     <Compile Include="Core\DataTypes\StationType.cs" />
     <Compile Include="Core\DataTypes\Stop.cs" />
     <Compile Include="Core\DataTypes\StopType.cs" />
+    <Compile Include="Core\FileCache.cs" />
+=======
+    <Compile Include="Core\HttpHeader.cs" />
+    <Compile Include="Core\Station.cs" />
+    <Compile Include="Core\StationType.cs" />
+    <Compile Include="Core\Stop.cs" />
+>>>>>>> AuthHeader
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,17 +93,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <None Include="Properties\DataSources\MainForm.datasource" />
-    <None Include="Properties\DataSources\OpenDataApplication.Core.CSVReader.datasource" />
-=======
     <None Include="Data\RET-haltebestand.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Properties\DataSources\MainForm.datasource" />
+    <None Include="Properties\DataSources\OpenDataApplication.Core.CSVReader.datasource" />
     <None Include="Data\stations-nl-2015-08.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
->>>>>>> Prototyping
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -113,19 +115,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <WCFMetadata Include="Connected Services\" />
-=======
     <Content Include="Data\Icons\bus_icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Icons\metro_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Icons\ns_icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Icons\ret_icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Data\Icons\tram_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
->>>>>>> Prototyping
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
