@@ -37,10 +37,10 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.Bus = new System.Windows.Forms.CheckBox();
+            this.Tram = new System.Windows.Forms.CheckBox();
+            this.Metro = new System.Windows.Forms.CheckBox();
+            this.Trein = new System.Windows.Forms.CheckBox();
             this.cSVReaderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -49,7 +49,6 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cSVReaderBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormBindingSource)).BeginInit();
-            this.map.MouseClick += MouseClicker;
             this.SuspendLayout();
             // 
             // map
@@ -100,10 +99,10 @@
             this.splitContainer1.Panel2.Controls.Add(this.comboBox2);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.checkBox4);
-            this.splitContainer1.Panel2.Controls.Add(this.checkBox3);
-            this.splitContainer1.Panel2.Controls.Add(this.checkBox2);
-            this.splitContainer1.Panel2.Controls.Add(this.checkBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.Bus);
+            this.splitContainer1.Panel2.Controls.Add(this.Tram);
+            this.splitContainer1.Panel2.Controls.Add(this.Metro);
+            this.splitContainer1.Panel2.Controls.Add(this.Trein);
             this.splitContainer1.Panel2MinSize = 450;
             this.splitContainer1.Size = new System.Drawing.Size(1341, 593);
             this.splitContainer1.SplitterDistance = 847;
@@ -169,53 +168,61 @@
             this.comboBox1.TabIndex = 5;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // checkBox4
+            // Bus
             // 
-            this.checkBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(350, 122);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(44, 17);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "Bus";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            this.Bus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Bus.AutoSize = true;
+            this.Bus.Checked = true;
+            this.Bus.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Bus.Location = new System.Drawing.Point(350, 122);
+            this.Bus.Name = "Bus";
+            this.Bus.Size = new System.Drawing.Size(44, 17);
+            this.Bus.TabIndex = 3;
+            this.Bus.Text = "Bus";
+            this.Bus.UseVisualStyleBackColor = true;
+            this.Bus.CheckedChanged += new System.EventHandler(this.Bus_CheckedChanged);
             // 
-            // checkBox3
+            // Tram
             // 
-            this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(350, 99);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(50, 17);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "Tram";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            this.Tram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Tram.AutoSize = true;
+            this.Tram.Checked = true;
+            this.Tram.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Tram.Location = new System.Drawing.Point(350, 99);
+            this.Tram.Name = "Tram";
+            this.Tram.Size = new System.Drawing.Size(50, 17);
+            this.Tram.TabIndex = 2;
+            this.Tram.Text = "Tram";
+            this.Tram.UseVisualStyleBackColor = true;
+            this.Tram.CheckedChanged += new System.EventHandler(this.Tram_CheckedChanged);
             // 
-            // checkBox2
+            // Metro
             // 
-            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(350, 76);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(53, 17);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Metro";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.Metro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Metro.AutoSize = true;
+            this.Metro.Checked = true;
+            this.Metro.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Metro.Location = new System.Drawing.Point(350, 76);
+            this.Metro.Name = "Metro";
+            this.Metro.Size = new System.Drawing.Size(53, 17);
+            this.Metro.TabIndex = 1;
+            this.Metro.Text = "Metro";
+            this.Metro.UseVisualStyleBackColor = true;
+            this.Metro.CheckedChanged += new System.EventHandler(this.Metro_CheckedChanged);
             // 
-            // checkBox1
+            // Trein
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(350, 53);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(50, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Trein";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.Trein.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Trein.AutoSize = true;
+            this.Trein.Checked = true;
+            this.Trein.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Trein.Location = new System.Drawing.Point(350, 53);
+            this.Trein.Name = "Trein";
+            this.Trein.Size = new System.Drawing.Size(50, 17);
+            this.Trein.TabIndex = 0;
+            this.Trein.Text = "Trein";
+            this.Trein.UseVisualStyleBackColor = true;
+            this.Trein.CheckedChanged += new System.EventHandler(this.Trein_CheckedChanged);
             // 
             // cSVReaderBindingSource
             // 
@@ -255,10 +262,10 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox Bus;
+        private System.Windows.Forms.CheckBox Tram;
+        private System.Windows.Forms.CheckBox Metro;
+        private System.Windows.Forms.CheckBox Trein;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.BindingSource cSVReaderBindingSource;
         private System.Windows.Forms.BindingSource mainFormBindingSource;
