@@ -57,9 +57,10 @@
   <ItemGroup>
     <Compile Include="Core\CSVReader.cs" />
     <Compile Include="Core\CustomMarker.cs" />
+    <Compile Include="Core\DataTypes\Station.cs" />
     <Compile Include="Core\EnumTypeConverter.cs" />
     <Compile Include="Core\ExtraTypeDescriptor.cs" />
-    <Compile Include="Core\DataTypes\Station.cs" />
+    <Compile Include="Core\HttpHeader.cs" />
     <Compile Include="Core\DataTypes\StationType.cs" />
     <Compile Include="Core\DataTypes\Stop.cs" />
     <Compile Include="Core\DataTypes\StopType.cs" />
@@ -90,8 +91,6 @@
     <None Include="Data\RET-haltebestand.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Properties\DataSources\MainForm.datasource" />
-    <None Include="Properties\DataSources\OpenDataApplication.Core.CSVReader.datasource" />
     <None Include="Data\stations-nl-2015-08.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -110,13 +109,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\Icons\bus_icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Icons\metro_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Icons\ns_icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Icons\ret_icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Data\Icons\tram_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

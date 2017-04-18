@@ -11,6 +11,7 @@
     using System.Drawing;
     using System.Collections.Generic;
     using System.Windows.Forms;
+    using System.Linq;
 
     public sealed partial class MainForm : Form
     {
@@ -19,8 +20,8 @@
             InitializeComponent();
             InitializeBaseMap();
 
-            InitializeStationLayer();   // TODO: run on background thread.
-            InitializeStopLayer();      // TODO: run on background thread.
+            InitializeStationLayer();
+            InitializeStopLayer();
         }
 
         private void InitializeBaseMap()
@@ -55,24 +56,72 @@
 
         private void InitializeStopLayer()
         {
-            GMapOverlay overlay = new GMapOverlay("Stops");
+            GMapOverlay Busoverlay = new GMapOverlay("BusStops");
+            GMapOverlay Tramoverlay = new GMapOverlay("TramStops");
+            GMapOverlay Metrooverlay = new GMapOverlay("MetroStops");
             List<Stop> stops = CSVReader.GetStopsFromFile($"RET-haltebestand.csv");
+            List<Stop> busstops = new List<Stop>();
+            List<Stop> tramstops = new List<Stop>();
+            List<Stop> metrostops = new List<Stop>();
 
-            Log.Info(nameof(stops), $"Started adding {stops.Count} stop markers");
+
             for (int i = 0; i < stops.Count; i++)
             {
-                Stop cur = stops[i];
+                if (stops[i].Type == StopType.Bus)
+                {
+                    busstops.Add(stops[i]);
+                }
+                else if (stops[i].Type == StopType.Tram)
+                {
+                    tramstops.Add(stops[i]);
+                }
+                else if (stops[i].Type == StopType.Metro)
+                {
+                    metrostops.Add(stops[i]);
+                }
+            }
+
+            Log.Info(nameof(stops), $"Started adding {stops.Count} stop markers");
+            for (int i = 0; i < busstops.Count; i++)
+            {
+                Stop cur = busstops[i];
                 if (!comboBox1.Items.Contains(cur))
                 {
                     Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
-                    overlay.Markers.Add(new RETMarker(cur));
+                    Busoverlay.Markers.Add(new RETMarker(cur));
+                    comboBox1.Items.Add(cur);
+                    comboBox2.Items.Add(cur);
+                }
+            }
+
+            for (int i = 0; i < tramstops.Count; i++)
+            {
+                Stop cur = tramstops[i];
+                if (!comboBox1.Items.Contains(cur))
+                {
+                    Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
+                    Tramoverlay.Markers.Add(new RETMarker(cur));
+                    comboBox1.Items.Add(cur);
+                    comboBox2.Items.Add(cur);
+                }
+            }
+
+            for (int i = 0; i < metrostops.Count; i++)
+            {
+                Stop cur = metrostops[i];
+                if (!comboBox1.Items.Contains(cur))
+                {
+                    Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
+                    Metrooverlay.Markers.Add(new RETMarker(cur));
                     comboBox1.Items.Add(cur);
                     comboBox2.Items.Add(cur);
                 }
             }
             Log.Info(nameof(stops), $"Finished adding stop markers");
                         
-            map.Overlays.Add(overlay);
+            map.Overlays.Add(Busoverlay);
+            map.Overlays.Add(Tramoverlay);
+            map.Overlays.Add(Metrooverlay);
         }
 
         private List<PointLatLng> points = new List<PointLatLng>();
@@ -234,6 +283,45 @@
                     map.Position = selectedStop.Position;
                 }
             }
+        }
+
+        private void Trein_CheckedChanged(object sender, EventArgs e)
+        {
+            //Trein
+            map.Overlays.First(o => o.Id == "Stations").IsVisibile = Trein.Checked;
+        }
+
+        private void Metro_CheckedChanged(object sender, EventArgs e)
+        {
+            //Metro
+            map.Overlays.First(o => o.Id == "MetroStops").IsVisibile = Metro.Checked;
+        }
+
+        private void Tram_CheckedChanged(object sender, EventArgs e)
+        {
+            //Tram
+            map.Overlays.First(o => o.Id == "TramStops").IsVisibile = Tram.Checked;
+        }
+
+        private void Bus_CheckedChanged(object sender, EventArgs e)
+        {
+            //Bus
+            map.Overlays.First(o => o.Id == "BusStops").IsVisibile = Bus.Checked;
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Help_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

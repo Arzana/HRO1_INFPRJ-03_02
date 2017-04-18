@@ -13,6 +13,8 @@
     /// </summary>
     public abstract class CustomMarker : GMapMarker
     {
+        private static readonly Size rendSize = new Size(15, 15);
+        private Rectangle rendRect;
         private Image img;
         private bool validImg;
 
@@ -36,7 +38,10 @@
         /// <inheritdoc/>
         public override void OnRender(Graphics g)
         {
-            if (validImg) g.DrawImage(img, LocalPosition);
+            if (validImg)
+            {
+                g.DrawImage(img, new Rectangle(LocalPosition, rendSize));
+            }
             base.OnRender(g);
         }
 

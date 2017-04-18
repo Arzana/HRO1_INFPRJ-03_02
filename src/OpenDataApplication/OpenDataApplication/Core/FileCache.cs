@@ -2,15 +2,16 @@
 {
     using DeJong.Utilities.Logging;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
 
     public sealed class FileCache
     {
-        private Dictionary<Type, object> data;
+        private Dictionary<Type, IList> data;
 
         public FileCache()
         {
-            data = new Dictionary<Type, object>();
+            data = new Dictionary<Type, IList>();
         }
 
         public bool TryGetPool<T>(out List<T> result)
