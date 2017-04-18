@@ -13,44 +13,58 @@ using static System.ConsoleKey;
 
 namespace OpenDataApplication.Core
 {
-    [XmlRoot("temp")] //name of the file as it is stored??????
-    class HttpHeader
+    //[XmlRoot("VertrekkendeTrein")]
+    public class NsData
     {
-        [XmlAttribute("id")] // The attribute you wish to filter on?
-        public int Id { get; set; }
+        public int RitNummer;
+        public string VertrekTijd;
+        public string EindBestemming;
+        public string TreinSoort;
+        public string Vervoerder;
+        public string VertrekSpoor;
+
+        public override string ToString()
+        {
+            return $"{{{RitNummer}, {VertrekTijd ?? "NULL"}, {EindBestemming ?? "NULL"}, {TreinSoort ?? "NULL"}, {Vervoerder ?? "NULL"}, {VertrekSpoor ?? "NULL"}}}";
+        }
+    }
+
+    [XmlRoot("ActueleVertrekTijden")]
+    public class ActueleVertrekTijden
+    {
+        [XmlElement("VertrekkendeTrein")]
+        public List<NsData> data { get; set; }
+
+        public ActueleVertrekTijden()
+        {
+            data = new List<NsData>();
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("{Count=");
+            sb.Append(data.Count);
+            sb.Append(", Data=");
+            for (int i = 0; i < data.Count; i++)
+            {
+                sb.Append(data[i]);
+            }
+            sb.Append("}");
+            return sb.ToString();
+        }
+    }
+
+    public class HttpHeader
+    {
         //const string URL = "https://webservices.ns.nl/ns-api-avt?station=ut";
         const string username = "0916827@hr.nl";
         const string password = "6qmg-XC7AH61Wz53i89ZC-bVSyab7QYTD6nS_Dx6wlLoMM_cFzzSXA";
 
-
-        public static string serialiser(XmlDocument x, string destination)
-        {
-            
-            object obj;
-            using (XmlReader reader = XmlReader.Create(new StringReader(destination)))
-            {
-                reader.MoveToContent();
-                switch (reader.Name)
-                {
-                    case "temp":
-                        obj = new XmlSerializer(typeof(HttpHeader)).Deserialize(reader);
-                        break;
-                    default:
-                        throw new NotSupportedException("unexpected" + reader.Name);
-                }
-            }
-
-            Console.WriteLine(x.InnerText);
-            return x.InnerText;
-        }
-
-
-
-
-
         public static XmlDocument webRequest(string URL)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+
             request.Method = WebRequestMethods.Http.Get;
             request.Credentials = new NetworkCredential(username, password);
             request.ContentType = "text/xml; encoding='utf-8'";
@@ -58,11 +72,12 @@ namespace OpenDataApplication.Core
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             XmlDocument xmlDocu = new XmlDocument();
 
-            XmlTextReader reader = new XmlTextReader(response.GetResponseStream());
-            xmlDocu.Load(reader);
+            XmlSerializer serial = new XmlSerializer(typeof(ActueleVertrekTijden));
+            ActueleVertrekTijden resp = (ActueleVertrekTijden)serial.Deserialize(response.GetResponseStream());
+
+            Console.WriteLine(resp);
 
             return (xmlDocu);
         }
-
     }
 }
