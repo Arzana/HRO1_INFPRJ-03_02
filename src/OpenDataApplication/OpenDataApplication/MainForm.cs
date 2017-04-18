@@ -6,7 +6,7 @@
     using GMap.NET.MapProviders;
     using GMap.NET.WindowsForms;
     using Markers;
-    using Mentula.Utilities.Logging;
+    using DeJong.Utilities.Logging;
     using System;
     using System.Drawing;
     using System.Collections.Generic;

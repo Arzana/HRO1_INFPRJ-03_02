@@ -1,8 +1,8 @@
 ﻿namespace OpenDataApplication.Core
 {
     using DataTypes;
-    using Mentula.Utilities.Core;
-    using Mentula.Utilities.Logging;
+    using DeJong.Utilities.Core;
+    using DeJong.Utilities.Logging;
     using Properties;
     using System;
     using System.Collections.Generic;
@@ -14,14 +14,17 @@
 
     public static class CSVReader
     {
-        private static int curLine;
-        private static string[] curValues;
-        private static FileCache cache;
+        private static int curLine;                         // The current line in the .csv file, used for logging line errors.
+
+        private static FileCache cache_file;                // The cache for the file specific values.
+        private static ReflectionCache cache_refl;          // The cache for the value serialization.
 
         static CSVReader()
         {
+            // The application needs to run in english or united states culture in order for the float and double values to convert properly.
             Application.CurrentCulture = CultureInfo.CreateSpecificCulture("en-us");
-            cache = new FileCache();
+            cache_file = new FileCache();
+            cache_refl = new ReflectionCache();
         }
 
         /// <summary>
@@ -32,7 +35,7 @@
         /// <exception cref="LoggedException"> The file was not a .csv file. </exception>
         public static List<Station> GetStationsFromFile(string path, bool overrideCache = false)
         {
-            return GetData(path, (i, c) => new Station(i, c), overrideCache);
+            return GetData<Station>(path, overrideCache);
         }
 
         /// <summary>
@@ -43,7 +46,7 @@
         /// <exception cref="LoggedException"> The file was not a .csv file. </exception>
         public static List<Stop> GetStopsFromFile(string path, bool overrideCache = false)
         {
-            return GetData(path, (i, c) => new Stop(i, c), overrideCache);
+            return GetData<Stop>(path, overrideCache);
         }
 
         /// <summary>
@@ -51,18 +54,19 @@
         /// </summary>
         public static void ClearCache()
         {
-            cache.Clear();
+            cache_file.Clear();
         }
 
-        private static List<T> GetData<T>(string path, Func<SerializationInfo, StreamingContext, T> ctor, bool overrideCache)
+        // Gets the data from either the file or from cache.
+        private static List<T> GetData<T>(string path, bool overrideCache)
             where T : ISerializable, new()
         {
             List<T> result;
 
-            if (overrideCache || !cache.TryGetPool(out result))
+            if (overrideCache || !cache_file.TryGetPool(out result))
             {
-                result = ReadTypeFromFile(path, ctor);
-                cache.AddPool(result, overrideCache);
+                result = ReadTypeFromFile<T>(path);
+                cache_file.AddPool(result, overrideCache);
             }
 
             return result;
@@ -75,30 +79,29 @@
         /// <param name="fileName"> A absolute or relative path to the file. </param>
         /// <param name="ctor"> A function to user as the types constructor. </param>
         /// <returns> A list of serialized objects. </returns>
-        private static List<T> ReadTypeFromFile<T>(string fileName, Func<SerializationInfo, StreamingContext, T> ctor)
+        private static List<T> ReadTypeFromFile<T>(string fileName)
             where T : ISerializable, new()
         {
-            fileName = $"{Settings.Default.DataDirectory}{fileName}";
+            fileName = $"{Settings.Default.DataDirectory}{fileName}";                   // Get the full path to the file.
             List<T> result = new List<T>();
             curLine = 0;
 
-            LoggedException.RaiseIf(!fileName.EndsWith(".csv"), nameof(CSVReader),
+            LoggedException.RaiseIf(!fileName.EndsWith(".csv"), nameof(CSVReader),      // Raise an exception if the files isn't a .csv file.
                 $"Cannot open file with extension {Path.GetExtension(fileName)}, supply .csv file");
 
             try
             {
-                using (StreamReader sr = new StreamReader(fileName))
+                using (StreamReader sr = new StreamReader(fileName))                    // Open a read stream to the file.
                 {
-                    Log.Verbose(nameof(CSVReader), $"Started parsing file: {Path.GetFullPath(fileName)}");
+                    Log.Verbose(nameof(CSVReader), $"Started parsing file: '{Path.GetFileName(fileName)}'");
 
                     string line;
-                    while ((line = sr.ReadLine()) != null)
+                    while ((line = sr.ReadLine()) != null)                              // Read all lines.
                     {
-                        ++curLine;
-                        curValues = line.Split(';');
+                        ++curLine;                                                      // Increment the current line.
 
                         T cur;
-                        if (DeserializeType(line, ctor, out cur)) result.Add(cur);
+                        if (DeserializeType(line, out cur)) result.Add(cur);            // Deserialzie a type from the current line.
                     }
 
                     Log.Info(nameof(CSVReader), $"File contains {result.Count} readable entries");
@@ -106,10 +109,10 @@
             }
             catch (Exception e)
             {
-                Log.Fatal(nameof(CSVReader), new FileLoadException($"An unhandled exception was raised during the processing of file: {Path.GetFullPath(fileName)}", e));
+                Log.Fatal(nameof(CSVReader), new FileLoadException($"An unhandled exception was raised during the processing of file: '{Path.GetFullPath(fileName)}'", e));
             }
 
-            Log.Verbose(nameof(CSVReader), $"Finished parsing file: {Path.GetFullPath(fileName)}");
+            Log.Verbose(nameof(CSVReader), $"Finished parsing file: '{Path.GetFileName(fileName)}'");
             return result;
         }
 
@@ -121,44 +124,41 @@
         /// <param name="ctor"> A function to user as the types constructor. </param>
         /// <param name="value"> The result value of the deserialization (default(T) if failed). </param>
         /// <returns> Whether the deserialization has succeeded. </returns>
-        private static bool DeserializeType<T>(string line, Func<SerializationInfo, StreamingContext, T> ctor, out T value)
+        private static bool DeserializeType<T>(string line, out T value)
             where T : ISerializable, new()
         {
             value = default(T);
 
             try
             {
-                StreamingContext context = new StreamingContext();
-                FormatterConverter formatConverter = new FormatterConverter();
+                SerializationInfo objInfo = cache_refl.GetInfo<T>();                                // Get a container for the objects types to serialize.
+                SerializationInfo resultInfo = cache_refl.GetEmptyInfo<T>();                        // Get a container for the types read from the file.
 
-                SerializationInfo objInfo = new SerializationInfo(typeof(T), formatConverter);
-                SerializationInfo resultInfo = new SerializationInfo(typeof(T), formatConverter);
-                new T().GetObjectData(objInfo, context);
-
-                string[] rawValues = line.Split(';');
-                if (rawValues.Length != objInfo.MemberCount) return false;
+                string[] rawValues = line.Split(';');                                               // Splits the line so we only have the underlying values.
+                if (rawValues.Length != objInfo.MemberCount) return false;                          // Check if the line contains enough members to populate the type.
 
                 int i = 0;
                 bool failed = false;
-                foreach (SerializationEntry entry in objInfo)
+                foreach (SerializationEntry entry in objInfo)                                       // Loop through all members to convert and add their values.
                 {
+                    // Floats and doubles need to be converted to the correct culture.
                     if (entry.ObjectType == typeof(double) || entry.ObjectType == typeof(float)) rawValues[i] = rawValues[i].Replace(',', '.');
                     try
                     {
-                        TypeConverter converter = null;
+                        TypeConverter converter = null; // Attempt to get a type converter for the current type.
                         failed = failed || !ExtraTypeDescriptor.GetFromString(entry.ObjectType, out converter);
                         if (!failed) resultInfo.AddValue(entry.Name, converter.ConvertFromString(rawValues[i++]));
                     }
                     catch (Exception)
                     {
                         failed = true;
-                        Log.Warning(nameof(CSVReader), $"Unable to read {entry.Name} at line {curLine} (cannot change {rawValues[i - 1]} into {entry.ObjectType})");
+                        Log.Warning(nameof(CSVReader), $"Unable to read {entry.Name} at line {curLine} ({(curLine == 1 ? "possible header line" : $"cannot change {rawValues[i - 1]} into {entry.ObjectType}")})");
                     }
                 }
 
-                if (failed) return false;
-
-                value = ctor(resultInfo, context);
+                if (failed) return false;                                                           // If the conversion failed return false.
+                // Call the constructor for the sepcified type with the converted values.
+                value = (T)cache_refl.GetCtor(typeof(T)).Invoke(new object[] { resultInfo, ReflectionCache.Context });
                 return true;
             }
             catch (Exception)
