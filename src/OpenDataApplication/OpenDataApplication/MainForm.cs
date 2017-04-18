@@ -21,7 +21,7 @@
             InitializeBaseMap();
 
             InitializeStationLayer();
-            InitializeStopLayer();      // TODO: run on background thread.
+            InitializeStopLayer();
         }
 
         private void InitializeBaseMap()
@@ -307,6 +307,21 @@
         {
             //Bus
             map.Overlays.First(o => o.Id == "BusStops").IsVisibile = Bus.Checked;
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Help_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -43,6 +43,7 @@
             this.Trein = new System.Windows.Forms.CheckBox();
             this.cSVReaderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Help = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -93,6 +94,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.Help);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
@@ -103,6 +105,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.Tram);
             this.splitContainer1.Panel2.Controls.Add(this.Metro);
             this.splitContainer1.Panel2.Controls.Add(this.Trein);
+            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
             this.splitContainer1.Panel2MinSize = 450;
             this.splitContainer1.Size = new System.Drawing.Size(1341, 593);
             this.splitContainer1.SplitterDistance = 847;
@@ -127,6 +130,7 @@
             this.label3.Size = new System.Drawing.Size(67, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "Lorem Ipsum";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -232,6 +236,17 @@
             // 
             this.mainFormBindingSource.DataSource = typeof(OpenDataApplication.MainForm);
             // 
+            // Help
+            // 
+            this.Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Help.Location = new System.Drawing.Point(407, 563);
+            this.Help.Name = "Help";
+            this.Help.Size = new System.Drawing.Size(80, 27);
+            this.Help.TabIndex = 11;
+            this.Help.Text = "Help";
+            this.Help.UseVisualStyleBackColor = true;
+            this.Help.Click += new System.EventHandler(this.Help_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,6 +284,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.BindingSource cSVReaderBindingSource;
         private System.Windows.Forms.BindingSource mainFormBindingSource;
+        private System.Windows.Forms.Button Help;
     }
 }
 
