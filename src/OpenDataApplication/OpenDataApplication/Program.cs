@@ -12,16 +12,9 @@
         {
             using (ConsoleLogger cl = new ConsoleLogger { AutoUpdate = true })
             {
-                //Application.EnableVisualStyles();
-                //Application.SetCompatibleTextRenderingDefault(false);
-                //Application.Run(new MainForm());
-                string Stationname = "rtb";
-                string Final = "Dordrecht";
-                string url = "https://webservices.ns.nl/ns-api-avt?station="+Stationname;
-                var x = HttpHeader.webRequest(url);
-
-                
-                
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
             }
         }
     }

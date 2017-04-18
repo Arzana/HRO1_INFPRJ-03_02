@@ -13,7 +13,6 @@ using static System.ConsoleKey;
 
 namespace OpenDataApplication.Core
 {
-    //[XmlRoot("VertrekkendeTrein")]
     public class NsData
     {
         public int RitNummer;
@@ -57,11 +56,10 @@ namespace OpenDataApplication.Core
 
     public class HttpHeader
     {
-        //const string URL = "https://webservices.ns.nl/ns-api-avt?station=ut";
         const string username = "0916827@hr.nl";
         const string password = "6qmg-XC7AH61Wz53i89ZC-bVSyab7QYTD6nS_Dx6wlLoMM_cFzzSXA";
 
-        public static XmlDocument webRequest(string URL)
+        public static object getActueleVertrektijden(string URL)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
 
@@ -77,7 +75,7 @@ namespace OpenDataApplication.Core
 
             Console.WriteLine(resp);
 
-            return (xmlDocu);
+            return (resp);
         }
     }
 }
