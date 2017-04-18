@@ -1,5 +1,6 @@
 ﻿namespace OpenDataApplication
 {
+    using Core;
     using Mentula.Utilities.Logging;
     using System;
     using System.Windows.Forms;
