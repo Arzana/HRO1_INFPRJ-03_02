@@ -59,7 +59,7 @@
     <Compile Include="Core\CustomMarker.cs" />
     <Compile Include="Core\EnumTypeConverter.cs" />
     <Compile Include="Core\ExtraTypeDescriptor.cs" />
-    <Compile Include="Core\DataTypes\Station.cs" />
+    <Compile Include="Core\HttpHeader.cs" />
     <Compile Include="Core\DataTypes\StationType.cs" />
     <Compile Include="Core\DataTypes\Stop.cs" />
     <Compile Include="Core\DataTypes\StopType.cs" />
