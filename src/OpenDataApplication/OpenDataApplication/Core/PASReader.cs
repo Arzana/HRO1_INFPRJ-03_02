@@ -20,7 +20,7 @@
             curLine = 0;
 
             LoggedException.RaiseIf(!fileName.EndsWith(".PAS"), nameof(PASReader),
-                $"Cannot open file with extension {Path.GetExtension(fileName)}, supply .csv file");
+                $"Cannot open file with extension {Path.GetExtension(fileName)}, supply .pas file");
 
             try
             {
@@ -63,7 +63,7 @@
                                     break;
                                 case ('+'):
                                     if (cur == null) Log.Error(nameof(PASReader), $"Floating big stop at line: {curLine} (Ignored)");
-                                    else if (cur.Stops.Count < 1) Log.Error(nameof(PASReader), $"Intermediate stop with no start at line: {curLine} (Ignored)");
+                                    else if (cur.Stops.Count < 1) Log.Error(nameof(PASReader), $"Big stop with no start at line: {curLine} (Ignored)");
                                     else cur.Stops.Add(ReadStopLine(line));
                                     break;
                                 case ('<'):

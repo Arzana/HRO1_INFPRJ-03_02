@@ -68,8 +68,12 @@
     <Compile Include="Core\FileCache.cs" />
     <Compile Include="Core\PASReader.cs" />
     <Compile Include="Core\ReflectionCache.cs" />
+    <Compile Include="Core\Route\AStar.cs" />
+    <Compile Include="Core\Route\AStarMap.cs" />
+    <Compile Include="Core\Route\AStarNode.cs" />
     <Compile Include="Core\Route\NsData.cs" />
     <Compile Include="Core\Route\TrainRoutes.cs" />
+    <Compile Include="Core\Route\Vect2.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
