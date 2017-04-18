@@ -18,7 +18,7 @@
                 string Stationname = "ut";
                 string url = "https://webservices.ns.nl/ns-api-avt?station="+Stationname;
                 var x = HttpHeader.webRequest(url);
-                string y = HttpHeader.XmLcon(x);
+                
                 
             }
         }
