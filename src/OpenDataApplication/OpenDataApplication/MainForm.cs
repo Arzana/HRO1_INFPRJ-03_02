@@ -20,7 +20,7 @@
             InitializeComponent();
             InitializeBaseMap();
 
-            InitializeStationLayer();   // TODO: run on background thread.
+            InitializeStationLayer();
             InitializeBusStopLayer();      // TODO: run on background thread.
         }
 
