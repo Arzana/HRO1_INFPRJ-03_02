@@ -55,6 +55,7 @@
         public static void ClearCache()
         {
             cache_file.Clear();
+            cache_refl.Clear();
         }
 
         // Gets the data from either the file or from cache.

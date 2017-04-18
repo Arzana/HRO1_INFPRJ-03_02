@@ -1,12 +1,12 @@
-﻿using DeJong.Utilities.Core;
-using DeJong.Utilities.Core.Collections;
-using DeJong.Utilities.Logging;
-using System;
-using System.Reflection;
-using System.Runtime.Serialization;
-
-namespace OpenDataApplication.Core
+﻿namespace OpenDataApplication.Core
 {
+    using DeJong.Utilities.Core;
+    using DeJong.Utilities.Core.Collections;
+    using DeJong.Utilities.Logging;
+    using System;
+    using System.Reflection;
+    using System.Runtime.Serialization;
+
     public sealed class ReflectionCache
     {
         public static readonly StreamingContext Context = new StreamingContext();
@@ -36,6 +36,12 @@ namespace OpenDataApplication.Core
             SerializationInfo result;
             if (!TryGetInfo(typeof(T), out result)) result = AddInfo<T>();
             return result;
+        }
+
+        public void Clear()
+        {
+            ctors = new ConstructorInfo[0];
+            typeInfo = new SerializationInfo[0];
         }
 
         private bool TryGetCtor(Type t, out ConstructorInfo result)
