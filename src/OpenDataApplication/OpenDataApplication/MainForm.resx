@@ -117,6 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Het menu:
+Beginpunt en Eindpint bevatten een drop down menu.
+Door op de pijltjes in het textbalkje te klikken word het
+drop down menu weergegeven
+
+Stationsinformatie geeft informatie over het laatst
+geselecteerde station, of de laatst gemaakte route
+
+Met de opties onder Zichtbaarheid kunnen de stations-
+icoontjes verbrogen worden.
+
+De kaart
+De kaart kan worden versleept door de rechtermuisknop
+ingedrukt te houden en dan te verslepen.
+Met het muiswiel kan worden ingezoomd.
+
+Door op de kaart te klikken word een afstandsradius
+weergegeven. Groen is het dichtsbij, en rood het verste
+weg.</value>
+  </data>
   <metadata name="cSVReaderBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

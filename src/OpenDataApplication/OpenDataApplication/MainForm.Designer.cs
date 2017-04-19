@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.map = new GMap.NET.WindowsForms.GMapControl();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.BtnCalcRoute = new System.Windows.Forms.Button();
@@ -44,6 +45,7 @@
             this.Trein = new System.Windows.Forms.CheckBox();
             this.cSVReaderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -94,6 +96,7 @@
             // 
             // splitContainer.Panel2
             // 
+            this.splitContainer.Panel2.Controls.Add(this.label1);
             this.splitContainer.Panel2.Controls.Add(this.BtnCalcRoute);
             this.splitContainer.Panel2.Controls.Add(this.LblVisibility);
             this.splitContainer.Panel2.Controls.Add(this.LblInfo);
@@ -245,6 +248,16 @@
             // 
             this.mainFormBindingSource.DataSource = typeof(OpenDataApplication.MainForm);
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(214, 343);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(273, 247);
+            this.label1.TabIndex = 12;
+            this.label1.Text = resources.GetString("label1.Text");
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -283,6 +296,7 @@
         private System.Windows.Forms.BindingSource cSVReaderBindingSource;
         private System.Windows.Forms.BindingSource mainFormBindingSource;
         private System.Windows.Forms.Button BtnCalcRoute;
+        private System.Windows.Forms.Label label1;
     }
 }
 
