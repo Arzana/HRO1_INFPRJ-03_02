@@ -6,22 +6,31 @@
     using GMap.NET.MapProviders;
     using GMap.NET.WindowsForms;
     using Markers;
-    using Mentula.Utilities.Logging;
+    using DeJong.Utilities.Logging;
     using System;
     using System.Drawing;
     using System.Collections.Generic;
     using System.Windows.Forms;
     using System.Linq;
+    using Core.Route;
 
     public sealed partial class MainForm : Form
     {
+        private AStarMap map_all;
+        private List<string> stationsCodesRotterdam;
+        List<Station> stations;
+        List<Stop> stops;
+
         public MainForm()
         {
+            stationsCodesRotterdam = new List<string>();
+
             InitializeComponent();
             InitializeBaseMap();
 
             InitializeStationLayer();
             InitializeStopLayer();
+            InitializeAStartMaps();
         }
 
         private void InitializeBaseMap()
@@ -35,18 +44,19 @@
         private void InitializeStationLayer()
         {
             GMapOverlay overlay = new GMapOverlay("Stations");
-            List<Station> stations = CSVReader.GetStationsFromFile($"stations-nl-2015-08.csv");
+            stations = CSVReader.GetStationsFromFile($"stations-nl-2015-08.csv");
 
             Log.Info(nameof(stations), $"Starting adding {stations.Count} station markers");
             for (int i = 0; i < stations.Count; i++)
             {
                 Station cur = stations[i];
-                if (cur.FullName.ToUpper().Contains("ROTTERDAM") && ( !comboBox1.Items.Contains(cur)))
+                if (cur.FullName.ToUpper().Contains("ROTTERDAM") && (!comboBox1.Items.Contains(cur)))
                 {
                     Log.Debug(nameof(stations), $"Adding station {cur.FriendlyName}");
                     overlay.Markers.Add(new NSMarker(cur.Position));
                     comboBox1.Items.Add(cur);
                     comboBox2.Items.Add(cur);
+                    stationsCodesRotterdam.Add(cur.Code);
                 }
             }
             Log.Info(nameof(stations), $"Finished adding station markers");
@@ -59,7 +69,7 @@
             GMapOverlay Busoverlay = new GMapOverlay("BusStops");
             GMapOverlay Tramoverlay = new GMapOverlay("TramStops");
             GMapOverlay Metrooverlay = new GMapOverlay("MetroStops");
-            List<Stop> stops = CSVReader.GetStopsFromFile($"RET-haltebestand.csv");
+            stops = CSVReader.GetStopsFromFile($"RET-haltebestand.csv");
             List<Stop> busstops = new List<Stop>();
             List<Stop> tramstops = new List<Stop>();
             List<Stop> metrostops = new List<Stop>();
@@ -118,17 +128,37 @@
                 }
             }
             Log.Info(nameof(stops), $"Finished adding stop markers");
-                        
+
             map.Overlays.Add(Busoverlay);
             map.Overlays.Add(Tramoverlay);
             map.Overlays.Add(Metrooverlay);
+        }
+
+        private void InitializeAStartMaps()
+        {
+            map_all = new AStarMap();
+
+            for (int i = 0; i < stationsCodesRotterdam.Count; i++)
+            {
+                Station cur = stations.Find(s => s.Code == stationsCodesRotterdam[i]);
+                AStarNode node = new AStarNode(cur.Position) { Id = cur };
+                map_all.Nodes.Add(node);
+            }
+
+            List<RETRoute> retRoutes = PASReader.ReadRoutesFromFile("RET.PAS");
+            List<RetStop> retStops = CSVReader.GetRetStopsFromFile("RET.HLT");
+
+            for (int i = 0; i < stops.Count; i++)
+            {
+                map_all.Nodes.Add(new AStarNode(stops[i].Position) { Id = stops[i] });
+            }
         }
 
         private List<PointLatLng> points = new List<PointLatLng>();
         private List<PointLatLng> Gpoints = new List<PointLatLng>();
 
         private GMapOverlay InitializePolygonLayer(PointLatLng point, GMapOverlay PolyOverlay)
-        {           
+        {
             overlay.Polygons.Clear();
             map.Overlays.Remove(PolyOverlay);
             points.Clear();
@@ -136,13 +166,13 @@
 
             List<Station> stations = CSVReader.GetStationsFromFile($"stations-nl-2015-08.csv");
             List<Stop> stops = CSVReader.GetStopsFromFile($"RET-haltebestand.csv");
-            PointLatLng Stopclosest = new PointLatLng(0,0);
+            PointLatLng Stopclosest = new PointLatLng(0, 0);
             double StopdifCoor = 1000000;
             PointLatLng Stationclosest = new PointLatLng(0, 0);
             double StationdifCoor = 1000000;
             PointLatLng Drawer = new PointLatLng(0, 0);
 
-            
+
 
             for (int i = 0; i < stops.Count; i++)
             {
@@ -150,7 +180,7 @@
                 double difLat = Math.Abs(cur.Position.Lat - point.Lat);
                 double difLng = Math.Abs(cur.Position.Lng - point.Lng);
                 double InnerdifCoor = difLng + difLat;
-                if(InnerdifCoor < StopdifCoor)
+                if (InnerdifCoor < StopdifCoor)
                 {
                     StopdifCoor = InnerdifCoor;
                     InnerdifCoor = 0;
@@ -243,7 +273,7 @@
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            map.BoundsOfMap = map.GetRectOfAllMarkers("Stations");
+            map.BoundsOfMap = map.GetRectOfAllMarkers("BusStops");
             map.Zoom = 12;
         }
 

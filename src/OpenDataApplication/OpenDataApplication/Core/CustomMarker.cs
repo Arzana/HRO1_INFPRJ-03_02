@@ -2,7 +2,7 @@
 {
     using GMap.NET;
     using GMap.NET.WindowsForms;
-    using Mentula.Utilities.Logging;
+    using DeJong.Utilities.Logging;
     using Properties;
     using System;
     using System.Drawing;

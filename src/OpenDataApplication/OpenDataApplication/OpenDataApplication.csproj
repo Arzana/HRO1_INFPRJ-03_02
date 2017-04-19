@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="Core\CSVReader.cs" />
     <Compile Include="Core\CustomMarker.cs" />
+    <Compile Include="Core\DataTypes\RETRoute.cs" />
+    <Compile Include="Core\DataTypes\RetStop.cs" />
     <Compile Include="Core\DataTypes\Station.cs" />
     <Compile Include="Core\EnumTypeConverter.cs" />
     <Compile Include="Core\ExtraTypeDescriptor.cs" />
@@ -65,6 +67,14 @@
     <Compile Include="Core\DataTypes\Stop.cs" />
     <Compile Include="Core\DataTypes\StopType.cs" />
     <Compile Include="Core\FileCache.cs" />
+    <Compile Include="Core\PASReader.cs" />
+    <Compile Include="Core\ReflectionCache.cs" />
+    <Compile Include="Core\Route\AStar.cs" />
+    <Compile Include="Core\Route\AStarMap.cs" />
+    <Compile Include="Core\Route\AStarNode.cs" />
+    <Compile Include="Core\Route\NsData.cs" />
+    <Compile Include="Core\Route\TrainRoutes.cs" />
+    <Compile Include="Core\Route\Vect2.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,8 +96,15 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Data\RET-haltebestand.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\RET.HLT">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\RET.PAS">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\stations-nl-2015-08.csv">
