@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.map = new GMap.NET.WindowsForms.GMapControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.Help = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.Trein = new System.Windows.Forms.CheckBox();
             this.cSVReaderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Help = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -111,6 +111,17 @@
             this.splitContainer1.SplitterDistance = 847;
             this.splitContainer1.TabIndex = 1;
             // 
+            // Help
+            // 
+            this.Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Help.Location = new System.Drawing.Point(407, 563);
+            this.Help.Name = "Help";
+            this.Help.Size = new System.Drawing.Size(80, 27);
+            this.Help.TabIndex = 11;
+            this.Help.Text = "Help";
+            this.Help.UseVisualStyleBackColor = true;
+            this.Help.Click += new System.EventHandler(this.Help_Click);
+            // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -125,11 +136,11 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(206, 464);
+            this.label3.Location = new System.Drawing.Point(66, 181);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.Size = new System.Drawing.Size(90, 13);
             this.label3.TabIndex = 9;
-            this.label3.Text = "Lorem Ipsum";
+            this.label3.Text = "Stationsinformatie";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
@@ -235,17 +246,6 @@
             // mainFormBindingSource
             // 
             this.mainFormBindingSource.DataSource = typeof(OpenDataApplication.MainForm);
-            // 
-            // Help
-            // 
-            this.Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Help.Location = new System.Drawing.Point(407, 563);
-            this.Help.Name = "Help";
-            this.Help.Size = new System.Drawing.Size(80, 27);
-            this.Help.TabIndex = 11;
-            this.Help.Text = "Help";
-            this.Help.UseVisualStyleBackColor = true;
-            this.Help.Click += new System.EventHandler(this.Help_Click);
             // 
             // MainForm
             // 
