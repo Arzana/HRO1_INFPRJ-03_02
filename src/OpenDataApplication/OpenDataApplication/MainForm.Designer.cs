@@ -252,7 +252,7 @@
             this.ClientSize = new System.Drawing.Size(1362, 617);
             this.Controls.Add(this.splitContainer);
             this.Name = "MainForm";
-            this.Text = "OpenData";
+            this.Text = "1818";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer.Panel1.ResumeLayout(false);

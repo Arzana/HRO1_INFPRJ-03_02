@@ -48,7 +48,7 @@
                                     cur = ReadRouteLine(line);
                                     break;
                                 case ('-'):
-                                    //Log.Debug(nameof(PASReader), "Skipped day code line (Useless)");
+                                    Log.Debug(nameof(PASReader), "Skipped day code line (Useless)");
                                     ReadDayCodeLine(line);
                                     break;
                                 case ('>'):
