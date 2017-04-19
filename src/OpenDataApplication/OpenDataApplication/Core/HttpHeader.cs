@@ -1,81 +1,59 @@
-﻿using System;
-using System.Xml.Serialization;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Xml;
-using System.Net.Mail;
-using System.Text;
-using System.Text.RegularExpressions;
-using static System.Console;
-using static System.ConsoleKey;
-
-
-namespace OpenDataApplication.Core
+﻿namespace OpenDataApplication.Core
 {
-    public class NsData
+    using Properties;
+    using Route;
+    using System.Net;
+    using System.Xml.Serialization;
+
+    public static class HttpHeader
     {
-        public int RitNummer;
-        public DateTime VertrekTijd;
-        public string EindBestemming;
-        public string TreinSoort;
-        public string Vervoerder;
-        public string VertrekSpoor;
+        private const string username = "0916827@hr.nl";
+        private const string password = "6qmg-XC7AH61Wz53i89ZC-bVSyab7QYTD6nS_Dx6wlLoMM_cFzzSXA";
+        private static XmlSerializer serializer = new XmlSerializer(typeof(TrainRoutes));
 
-        public override string ToString()
+        public static TrainRoutes GetFromStation(string station)
         {
-            return $"{{{RitNummer}, {VertrekTijd}, {EindBestemming ?? "NULL"}, {TreinSoort ?? "NULL"}, {Vervoerder ?? "NULL"}, {VertrekSpoor ?? "NULL"}}}";
-        }
-    }
+            HttpWebRequest req = GetReqCtor($"{Resources.NSApiUri}{station}");
 
-    [XmlRoot("ActueleVertrekTijden")]
-    public class ActueleVertrekTijden
-    {
-        [XmlElement("VertrekkendeTrein")]
-        public List<NsData> data { get; set; }
+            HttpWebResponse resp;
+            if (!TryGetResponse(req, out resp)) return new TrainRoutes();
 
-        public ActueleVertrekTijden()
-        {
-            data = new List<NsData>();
-        }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("{Count=");
-            sb.Append(data.Count);
-            sb.Append(", Data=");
-            for (int i = 0; i < data.Count; i++)
+            try
             {
-                sb.Append(data[i]);
+                return (TrainRoutes)serializer.Deserialize(resp.GetResponseStream());
             }
-            sb.Append("}");
-            return sb.ToString();
+            catch
+            {
+                return new TrainRoutes();
+            }
         }
-    }
 
-    public class HttpHeader
-    {
-        const string username = "0916827@hr.nl";
-        const string password = "6qmg-XC7AH61Wz53i89ZC-bVSyab7QYTD6nS_Dx6wlLoMM_cFzzSXA";
-
-        public static object getActueleVertrektijden(string URL)
+        private static bool TryGetResponse(HttpWebRequest req, out HttpWebResponse result)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            try
+            {
+                result = (HttpWebResponse)req.GetResponse();
+                return true;
+            }
+            catch(WebException we)
+            {
+                result = (HttpWebResponse)we.Response;
+                return false;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+        }
 
-            request.Method = WebRequestMethods.Http.Get;
-            request.Credentials = new NetworkCredential(username, password);
-            request.ContentType = "text/xml; encoding='utf-8'";
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            XmlDocument xmlDocu = new XmlDocument();
-
-            XmlSerializer serial = new XmlSerializer(typeof(ActueleVertrekTijden));
-            ActueleVertrekTijden resp = (ActueleVertrekTijden)serial.Deserialize(response.GetResponseStream());
-
-            Console.WriteLine(resp);
-
-            return (resp);
+        private static HttpWebRequest GetReqCtor(string uri)
+        {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(uri);
+            req.Method = WebRequestMethods.Http.Get;
+            req.ContentType = "text/xml; encoding='utf-8'";
+            req.Credentials = new NetworkCredential(username, password);
+            return req;
         }
     }
 }

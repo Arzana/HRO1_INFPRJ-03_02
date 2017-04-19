@@ -1,6 +1,6 @@
 ﻿namespace OpenDataApplication.Core
 {
-    using Mentula.Utilities.Logging;
+    using DeJong.Utilities.Logging;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -36,13 +36,13 @@
             {
                 if (overridePool)
                 {
-                    Log.Verbose(nameof(FileCache), $"Overriding cache pool {key.Name}, {((IList<T>)data[key]).Count} to {fromFile.Count} entries");
+                    Log.Verbose(nameof(FileCache), $"Overriding cache pool '{key.Name}', {((IList<T>)data[key]).Count} to {fromFile.Count} entries");
                     data[key] = fromFile;
                 }
             }
             else
             {
-                Log.Verbose(nameof(FileCache), $"Adding cache pool {key.Name}({fromFile.Count} entries)");
+                Log.Verbose(nameof(FileCache), $"Adding cache pool '{key.Name}'({fromFile.Count} entries)");
                 data.Add(key, fromFile);
             }
         }
