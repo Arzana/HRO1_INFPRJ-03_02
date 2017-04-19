@@ -2,20 +2,19 @@
 {
     using Core;
     using Core.DataTypes;
+    using Core.Route;
+    using DeJong.Utilities.Logging;
     using GMap.NET;
     using GMap.NET.MapProviders;
     using GMap.NET.WindowsForms;
     using Markers;
-    using DeJong.Utilities.Logging;
     using System;
-    using System.Drawing;
     using System.Collections.Generic;
-    using System.Windows.Forms;
-    using System.Linq;
-    using Core.Route;
-    using System.Runtime.CompilerServices;
-    using System.Text;
     using System.Diagnostics;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text;
+    using System.Windows.Forms;
 
     public sealed partial class MainForm : Form
     {
@@ -34,6 +33,8 @@
             InitializeStationLayer();
             InitializeStopLayer();
             InitializeAStartMaps();
+
+            map.Overlays.Add(new GMapOverlay("Routes"));
         }
 
         private void InitializeBaseMap()
@@ -53,12 +54,12 @@
             for (int i = 0; i < stations.Count; i++)
             {
                 Station cur = stations[i];
-                if (cur.FullName.ToUpper().Contains("ROTTERDAM") && (!comboBox1.Items.Contains(cur)))
+                if (cur.FullName.ToUpper().Contains("ROTTERDAM") && (!CBoxStart.Items.Contains(cur)))
                 {
                     Log.Debug(nameof(stations), $"Adding station {cur.FriendlyName}");
                     overlay.Markers.Add(new NSMarker(cur.Position));
-                    comboBox1.Items.Add(cur);
-                    comboBox2.Items.Add(cur);
+                    CBoxStart.Items.Add(cur);
+                    CBoxEnd.Items.Add(cur);
                     stationsCodesRotterdam.Add(cur.Code);
                 }
             }
@@ -98,36 +99,36 @@
             for (int i = 0; i < busstops.Count; i++)
             {
                 Stop cur = busstops[i];
-                if (!comboBox1.Items.Contains(cur))
+                if (!CBoxStart.Items.Contains(cur))
                 {
                     Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
                     Busoverlay.Markers.Add(new RETMarker(cur));
-                    comboBox1.Items.Add(cur);
-                    comboBox2.Items.Add(cur);
+                    CBoxStart.Items.Add(cur);
+                    CBoxEnd.Items.Add(cur);
                 }
             }
 
             for (int i = 0; i < tramstops.Count; i++)
             {
                 Stop cur = tramstops[i];
-                if (!comboBox1.Items.Contains(cur))
+                if (!CBoxStart.Items.Contains(cur))
                 {
                     Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
                     Tramoverlay.Markers.Add(new RETMarker(cur));
-                    comboBox1.Items.Add(cur);
-                    comboBox2.Items.Add(cur);
+                    CBoxStart.Items.Add(cur);
+                    CBoxEnd.Items.Add(cur);
                 }
             }
 
             for (int i = 0; i < metrostops.Count; i++)
             {
                 Stop cur = metrostops[i];
-                if (!comboBox1.Items.Contains(cur))
+                if (!CBoxStart.Items.Contains(cur))
                 {
                     Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
                     Metrooverlay.Markers.Add(new RETMarker(cur));
-                    comboBox1.Items.Add(cur);
-                    comboBox2.Items.Add(cur);
+                    CBoxStart.Items.Add(cur);
+                    CBoxEnd.Items.Add(cur);
                 }
             }
             Log.Info(nameof(stops), $"Finished adding stop markers");
@@ -140,7 +141,7 @@
         private void InitializeAStartMaps()
         {
             map_all = new AStarMap();
-            Log.Verbose(nameof(AStar), "Started generating map");
+            Log.Verbose(nameof(AStar), "Started generating map, this may take a while");
             Stopwatch sw = Stopwatch.StartNew();
 
             for (int i = 0; i < stationsCodesRotterdam.Count; i++)
@@ -328,12 +329,12 @@
             map.Zoom = 12;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void CBoxStart_SelectedIndexChanged(object sender, EventArgs e)
         {
             Station selectedStation = (sender as ComboBox)?.SelectedItem as Station;
             if (selectedStation != null)
             {
-                label3.Text = selectedStation.Type.ToString();
+                LblInfo.Text = selectedStation.Type.ToString();
                 map.Position = selectedStation.Position;
             }
             else
@@ -341,18 +342,18 @@
                 Stop selectedStop = (sender as ComboBox)?.SelectedItem as Stop;
                 if (selectedStop != null)
                 {
-                    label3.Text = selectedStop.Description;
+                    LblInfo.Text = selectedStop.Description;
                     map.Position = selectedStop.Position;
                 }
             }
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void CBoxEnd_SelectedIndexChanged(object sender, EventArgs e)
         {
             Station selectedStation = (sender as ComboBox)?.SelectedItem as Station;
             if (selectedStation != null)
             {
-                label3.Text = selectedStation.Type.ToString();
+                LblInfo.Text = selectedStation.Type.ToString();
                 map.Position = selectedStation.Position;
             }
             else
@@ -360,60 +361,41 @@
                 Stop selectedStop = (sender as ComboBox)?.SelectedItem as Stop;
                 if (selectedStop != null)
                 {
-                    label3.Text = selectedStop.Description;
+                    LblInfo.Text = selectedStop.Description;
                     map.Position = selectedStop.Position;
                 }
             }
         }
 
-        private void Trein_CheckedChanged(object sender, EventArgs e)
+        private void CheckTrein_CheckedChanged(object sender, EventArgs e)
         {
-            //Trein
             map.Overlays.First(o => o.Id == "Stations").IsVisibile = Trein.Checked;
         }
 
-        private void Metro_CheckedChanged(object sender, EventArgs e)
+        private void CheckMetro_CheckedChanged(object sender, EventArgs e)
         {
-            //Metro
             map.Overlays.First(o => o.Id == "MetroStops").IsVisibile = Metro.Checked;
         }
 
-        private void Tram_CheckedChanged(object sender, EventArgs e)
+        private void CheckTram_CheckedChanged(object sender, EventArgs e)
         {
-            //Tram
             map.Overlays.First(o => o.Id == "TramStops").IsVisibile = Tram.Checked;
         }
 
-        private void Bus_CheckedChanged(object sender, EventArgs e)
+        private void CheckBus_CheckedChanged(object sender, EventArgs e)
         {
-            //Bus
             map.Overlays.First(o => o.Id == "BusStops").IsVisibile = Bus.Checked;
         }
 
-        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        private void BtnCalcRoute_Click(object sender, EventArgs e)
         {
+            Stop start = CBoxStart.SelectedItem as Stop;
+            Stop end = CBoxEnd.SelectedItem as Stop;
 
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Stop start = comboBox1.SelectedItem as Stop;
-            Stop end = comboBox2.SelectedItem as Stop;
-
-            label3.Text = string.Empty;
-            if (map_all.Nodes.Find(n => n.Position == new Vect2(start.Position)) == null) label3.Text = "Start not in routes";
-            if (map_all.Nodes.Find(n => n.Position == new Vect2(end.Position)) == null) label3.Text = "End not in routes";
-            if (!string.IsNullOrEmpty(label3.Text)) return;
+            LblInfo.Text = string.Empty;
+            if (map_all.Nodes.Find(n => n.Position == new Vect2(start.Position)) == null) LblInfo.Text = "Start not in routes";
+            if (map_all.Nodes.Find(n => n.Position == new Vect2(end.Position)) == null) LblInfo.Text = "End not in routes";
+            if (!string.IsNullOrEmpty(LblInfo.Text)) return;
 
             map_all.Start = new Vect2(start.Position);
             map_all.End = new Vect2(end.Position);
@@ -430,7 +412,20 @@
                 sb.Append(result[i].Id);
                 sb.Append(Environment.NewLine);
             }
-            label3.Text = sb.ToString();
+            LblInfo.Text = sb.ToString();
+
+            List<PointLatLng> points = new List<PointLatLng>();
+            for (int i = 0; i < result.Count; i++)
+            {
+                points.Add(new PointLatLng(result[i].Position.X, result[i].Position.Y));
+            }
+            GMapRoute route = new GMapRoute(points, "CurRoute");
+            route.Stroke = new Pen(Color.IndianRed, 3);
+
+            GMapOverlay routes = map.Overlays.First(o => o.Id == "Routes");
+            routes.Routes.Clear();
+            routes.Clear();
+            routes.Routes.Add(route);
         }
     }
 }

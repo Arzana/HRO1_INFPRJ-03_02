@@ -29,29 +29,25 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.map = new GMap.NET.WindowsForms.GMapControl();
-            this.map.MouseClick += MouseClicker;
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.button1 = new System.Windows.Forms.Button();
-            this.Help = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.BtnCalcRoute = new System.Windows.Forms.Button();
+            this.LblVisibility = new System.Windows.Forms.Label();
+            this.LblInfo = new System.Windows.Forms.Label();
+            this.LblEnd = new System.Windows.Forms.Label();
+            this.CBoxEnd = new System.Windows.Forms.ComboBox();
+            this.LblStart = new System.Windows.Forms.Label();
+            this.CBoxStart = new System.Windows.Forms.ComboBox();
             this.Bus = new System.Windows.Forms.CheckBox();
             this.Tram = new System.Windows.Forms.CheckBox();
             this.Metro = new System.Windows.Forms.CheckBox();
             this.Trein = new System.Windows.Forms.CheckBox();
             this.cSVReaderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.label5 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cSVReaderBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -84,119 +80,106 @@
             this.map.TabIndex = 0;
             this.map.Zoom = 0D;
             // 
-            // splitContainer1
+            // splitContainer
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(12, 12);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer.Location = new System.Drawing.Point(12, 12);
+            this.splitContainer.Name = "splitContainer";
             // 
-            // splitContainer1.Panel1
+            // splitContainer.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.map);
+            this.splitContainer.Panel1.Controls.Add(this.map);
             // 
-            // splitContainer1.Panel2
+            // splitContainer.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.label5);
-            this.splitContainer1.Panel2.Controls.Add(this.label4);
-            this.splitContainer1.Panel2.Controls.Add(this.label3);
-            this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Panel2.Controls.Add(this.comboBox2);
-            this.splitContainer1.Panel2.Controls.Add(this.label1);
-            this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.Bus);
-            this.splitContainer1.Panel2.Controls.Add(this.Tram);
-            this.splitContainer1.Panel2.Controls.Add(this.Metro);
-            this.splitContainer1.Panel2.Controls.Add(this.Trein);
-            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Panel2MinSize = 450;
-            this.splitContainer1.Size = new System.Drawing.Size(1341, 593);
-            this.splitContainer1.SplitterDistance = 847;
-            this.splitContainer1.TabIndex = 1;
+            this.splitContainer.Panel2.Controls.Add(this.BtnCalcRoute);
+            this.splitContainer.Panel2.Controls.Add(this.LblVisibility);
+            this.splitContainer.Panel2.Controls.Add(this.LblInfo);
+            this.splitContainer.Panel2.Controls.Add(this.LblEnd);
+            this.splitContainer.Panel2.Controls.Add(this.CBoxEnd);
+            this.splitContainer.Panel2.Controls.Add(this.LblStart);
+            this.splitContainer.Panel2.Controls.Add(this.CBoxStart);
+            this.splitContainer.Panel2.Controls.Add(this.Bus);
+            this.splitContainer.Panel2.Controls.Add(this.Tram);
+            this.splitContainer.Panel2.Controls.Add(this.Metro);
+            this.splitContainer.Panel2.Controls.Add(this.Trein);
+            this.splitContainer.Panel2MinSize = 450;
+            this.splitContainer.Size = new System.Drawing.Size(1341, 593);
+            this.splitContainer.SplitterDistance = 847;
+            this.splitContainer.TabIndex = 1;
             // 
-            // button1
+            // BtnCalcRoute
             // 
-            this.button1.Location = new System.Drawing.Point(69, 143);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.BtnCalcRoute.Location = new System.Drawing.Point(137, 153);
+            this.BtnCalcRoute.Name = "BtnCalcRoute";
+            this.BtnCalcRoute.Size = new System.Drawing.Size(108, 23);
+            this.BtnCalcRoute.TabIndex = 11;
+            this.BtnCalcRoute.Text = "Calculate Route";
+            this.BtnCalcRoute.UseVisualStyleBackColor = true;
+            this.BtnCalcRoute.Click += new System.EventHandler(this.BtnCalcRoute_Click);
             // 
-            // Help
+            // LblVisibility
             // 
-            this.Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Help.Location = new System.Drawing.Point(407, 563);
-            this.Help.Name = "Help";
-            this.Help.Size = new System.Drawing.Size(80, 27);
-            this.Help.TabIndex = 11;
-            this.Help.Text = "Help";
-            this.Help.UseVisualStyleBackColor = true;
-            this.Help.Click += new System.EventHandler(this.Help_Click);
+            this.LblVisibility.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblVisibility.AutoSize = true;
+            this.LblVisibility.Location = new System.Drawing.Point(347, 33);
+            this.LblVisibility.Name = "LblVisibility";
+            this.LblVisibility.Size = new System.Drawing.Size(72, 13);
+            this.LblVisibility.TabIndex = 10;
+            this.LblVisibility.Text = "Zichtbaarheid";
             // 
-            // label4
+            // LblInfo
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(347, 33);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Zichtbaarheid";
+            this.LblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblInfo.AutoSize = true;
+            this.LblInfo.Location = new System.Drawing.Point(66, 192);
+            this.LblInfo.MaximumSize = new System.Drawing.Size(500, 500);
+            this.LblInfo.Name = "LblInfo";
+            this.LblInfo.Size = new System.Drawing.Size(90, 13);
+            this.LblInfo.TabIndex = 9;
+            this.LblInfo.Text = "Stationsinformatie";
             // 
-            // label3
+            // LblEnd
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(82, 155);
-            this.label3.MaximumSize = new System.Drawing.Size(500, 500);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Stationsinformatie";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            this.LblEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblEnd.AutoSize = true;
+            this.LblEnd.Location = new System.Drawing.Point(82, 96);
+            this.LblEnd.Name = "LblEnd";
+            this.LblEnd.Size = new System.Drawing.Size(49, 13);
+            this.LblEnd.TabIndex = 8;
+            this.LblEnd.Text = "Eindpunt";
             // 
-            // label2
+            // CBoxEnd
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(82, 96);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Eindpunt";
+            this.CBoxEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBoxEnd.FormattingEnabled = true;
+            this.CBoxEnd.Location = new System.Drawing.Point(69, 116);
+            this.CBoxEnd.Name = "CBoxEnd";
+            this.CBoxEnd.Size = new System.Drawing.Size(244, 21);
+            this.CBoxEnd.TabIndex = 7;
+            this.CBoxEnd.SelectedIndexChanged += new System.EventHandler(this.CBoxEnd_SelectedIndexChanged);
             // 
-            // comboBox2
+            // LblStart
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(69, 116);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(244, 21);
-            this.comboBox2.TabIndex = 7;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.LblStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblStart.AutoSize = true;
+            this.LblStart.Location = new System.Drawing.Point(82, 30);
+            this.LblStart.Name = "LblStart";
+            this.LblStart.Size = new System.Drawing.Size(55, 13);
+            this.LblStart.TabIndex = 6;
+            this.LblStart.Text = "Beginpunt";
             // 
-            // label1
+            // CBoxStart
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(82, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Beginpunt";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(69, 49);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(244, 21);
-            this.comboBox1.TabIndex = 5;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.CBoxStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBoxStart.FormattingEnabled = true;
+            this.CBoxStart.Location = new System.Drawing.Point(69, 49);
+            this.CBoxStart.Name = "CBoxStart";
+            this.CBoxStart.Size = new System.Drawing.Size(244, 21);
+            this.CBoxStart.TabIndex = 5;
+            this.CBoxStart.SelectedIndexChanged += new System.EventHandler(this.CBoxStart_SelectedIndexChanged);
             // 
             // Bus
             // 
@@ -210,7 +193,7 @@
             this.Bus.TabIndex = 3;
             this.Bus.Text = "Bus";
             this.Bus.UseVisualStyleBackColor = true;
-            this.Bus.CheckedChanged += new System.EventHandler(this.Bus_CheckedChanged);
+            this.Bus.CheckedChanged += new System.EventHandler(this.CheckBus_CheckedChanged);
             // 
             // Tram
             // 
@@ -224,7 +207,7 @@
             this.Tram.TabIndex = 2;
             this.Tram.Text = "Tram";
             this.Tram.UseVisualStyleBackColor = true;
-            this.Tram.CheckedChanged += new System.EventHandler(this.Tram_CheckedChanged);
+            this.Tram.CheckedChanged += new System.EventHandler(this.CheckTram_CheckedChanged);
             // 
             // Metro
             // 
@@ -238,7 +221,7 @@
             this.Metro.TabIndex = 1;
             this.Metro.Text = "Metro";
             this.Metro.UseVisualStyleBackColor = true;
-            this.Metro.CheckedChanged += new System.EventHandler(this.Metro_CheckedChanged);
+            this.Metro.CheckedChanged += new System.EventHandler(this.CheckMetro_CheckedChanged);
             // 
             // Trein
             // 
@@ -252,7 +235,7 @@
             this.Trein.TabIndex = 0;
             this.Trein.Text = "Trein";
             this.Trein.UseVisualStyleBackColor = true;
-            this.Trein.CheckedChanged += new System.EventHandler(this.Trein_CheckedChanged);
+            this.Trein.CheckedChanged += new System.EventHandler(this.CheckTrein_CheckedChanged);
             // 
             // cSVReaderBindingSource
             // 
@@ -262,30 +245,21 @@
             // 
             this.mainFormBindingSource.DataSource = typeof(OpenDataApplication.MainForm);
             // 
-            // label5
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(124, 356);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(363, 234);
-            this.label5.TabIndex = 11;
-            this.label5.Text = resources.GetString("label5.Text");
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1362, 617);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitContainer);
             this.Name = "MainForm";
             this.Text = "OpenData";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
+            this.splitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cSVReaderBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -295,21 +269,20 @@
         #endregion
 
         private GMap.NET.WindowsForms.GMapControl map;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.Label LblInfo;
+        private System.Windows.Forms.Label LblEnd;
+        private System.Windows.Forms.ComboBox CBoxEnd;
+        private System.Windows.Forms.Label LblStart;
+        private System.Windows.Forms.ComboBox CBoxStart;
         private System.Windows.Forms.CheckBox Bus;
         private System.Windows.Forms.CheckBox Tram;
         private System.Windows.Forms.CheckBox Metro;
         private System.Windows.Forms.CheckBox Trein;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label LblVisibility;
         private System.Windows.Forms.BindingSource cSVReaderBindingSource;
         private System.Windows.Forms.BindingSource mainFormBindingSource;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnCalcRoute;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OpenDataApplication.Core.Route
 {
@@ -21,7 +22,7 @@ namespace OpenDataApplication.Core.Route
                 for (int i = 0; i < cur.Adjason.Count; i++)
                 {
                     AStarNode neighbour = cur.Adjason[i];
-                    int moveCost = 10;//(int)(Vect2.Dist(cur.Position, neighbour.Position) * 10000);
+                    int moveCost = (int)(Math.Abs(Vect2.Dist(cur.Position, neighbour.Position) * 10000));
                     if (!neighbour.HasParent) neighbour.SetParent(cur, moveCost);
                     if (cur.GValue + moveCost < neighbour.GValue) neighbour.SetParent(cur, moveCost);
                     if (!open.Contains(neighbour)) open.Add(neighbour);
