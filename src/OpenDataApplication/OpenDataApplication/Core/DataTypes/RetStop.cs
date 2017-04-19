@@ -29,15 +29,15 @@
         public RetStop(SerializationInfo info, StreamingContext context)
         {
             TransferStop = info.GetInt32("Overstaphalte");
-            Code = info.GetString("Haltecode");
+            Code = info.GetString("Haltecode").Trim();
             TransferTime = info.GetInt32("Overstaptijd");
             NOT_USED1 = info.GetInt32("Maximale overstaptijd");
-            CountryCode = info.GetString("Landcode");
+            CountryCode = info.GetString("Landcode").Trim().ToUpper();
             TimeZone = info.GetInt32("Tijdzone");
             NOT_USED2 = info.GetInt32("Attribuut");
             XCoord = info.GetInt32("x-coördinaat");
             YCoord = info.GetInt32("y-coördinaat");
-            Name = info.GetString("Naam");
+            Name = info.GetString("Naam").Trim();
             Zone1 = info.GetInt32("Zone1");
             Zone2 = info.GetInt32("Zone2");
             Zone3 = info.GetInt32("Zone3");
@@ -60,6 +60,11 @@
             info.AddValue("Zone2", Zone2);
             info.AddValue("Zone3", Zone3);
             info.AddValue("Zone4", Zone4);
+        }
+
+        public override string ToString()
+        {
+            return $"{Code}";
         }
     }
 }

@@ -9,7 +9,12 @@
         [STAThread]
         public static void Main()
         {
-            using (ConsoleLogger cl = new ConsoleLogger { AutoUpdate = true })
+#if DEBUG
+            bool release = false;
+#else
+            bool release = true;
+#endif
+            using (ConsoleLogger cl = new ConsoleLogger(suppressConsoleResize: release) { AutoUpdate = true })
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

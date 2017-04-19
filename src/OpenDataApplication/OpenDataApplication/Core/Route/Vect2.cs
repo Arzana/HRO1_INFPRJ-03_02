@@ -1,6 +1,7 @@
 ﻿namespace OpenDataApplication.Core.Route
 {
     using DeJong.Utilities;
+    using GMap.NET;
     using System;
 
     public struct Vect2 : IEquatable<Vect2>
@@ -25,6 +26,12 @@
         {
             X = x;
             Y = y;
+        }
+
+        public Vect2 (PointLatLng pos)
+        {
+            X = pos.Lat;
+            Y = pos.Lng;
         }
 
         public static double Dist(Vect2 left, Vect2 right)

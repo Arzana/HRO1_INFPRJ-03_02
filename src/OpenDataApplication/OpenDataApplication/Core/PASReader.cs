@@ -48,7 +48,7 @@
                                     cur = ReadRouteLine(line);
                                     break;
                                 case ('-'):
-                                    Log.Debug(nameof(PASReader), "Skipped day code line (Useless)");
+                                    //Log.Debug(nameof(PASReader), "Skipped day code line (Useless)");
                                     ReadDayCodeLine(line);
                                     break;
                                 case ('>'):
@@ -64,7 +64,7 @@
                                 case ('+'):
                                     if (cur == null) Log.Error(nameof(PASReader), $"Floating big stop at line: {curLine} (Ignored)");
                                     else if (cur.Stops.Count < 1) Log.Error(nameof(PASReader), $"Big stop with no start at line: {curLine} (Ignored)");
-                                    else cur.Stops.Add(ReadStopLine(line));
+                                    else cur.Stops.Add(ReadBigStopLine(line));
                                     break;
                                 case ('<'):
                                     if (cur == null) Log.Error(nameof(PASReader), $"Floating stop at line: {curLine} (Ignored)");
@@ -99,12 +99,12 @@
 
         private static BigRouteStop ReadBigStopLine(string line)
         {
-            CheckNullLine(line, "route end line");
-            LoggedException.RaiseIf(line[0] != '+' || line[8] != ',' || line.Length != 17, nameof(PASReader), "Invalid route end format");
+            CheckNullLine(line, "big route line");
+            LoggedException.RaiseIf(line[0] != '+' || line[8] != ',' || line.Length != 18, nameof(PASReader), "Invalid big route format");
 
             BigRouteStop result = new BigRouteStop { Id = line.Substring(1, 6) };
             result.SetLeaveFromString(line.Substring(9, 4));
-            result.SetArriveFromString(line.Substring(13, 4));
+            result.SetArriveFromString(line.Substring(14, 4));
             return result;
         }
 

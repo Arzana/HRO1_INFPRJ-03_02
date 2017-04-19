@@ -13,6 +13,9 @@
     using System.Windows.Forms;
     using System.Linq;
     using Core.Route;
+    using System.Runtime.CompilerServices;
+    using System.Text;
+    using System.Diagnostics;
 
     public sealed partial class MainForm : Form
     {
@@ -137,6 +140,8 @@
         private void InitializeAStartMaps()
         {
             map_all = new AStarMap();
+            Log.Verbose(nameof(AStar), "Started generating map");
+            Stopwatch sw = Stopwatch.StartNew();
 
             for (int i = 0; i < stationsCodesRotterdam.Count; i++)
             {
@@ -145,12 +150,58 @@
                 map_all.Nodes.Add(node);
             }
 
-            List<RETRoute> retRoutes = PASReader.ReadRoutesFromFile("RET.PAS");
-            List<RetStop> retStops = CSVReader.GetRetStopsFromFile("RET.HLT");
-
             for (int i = 0; i < stops.Count; i++)
             {
-                map_all.Nodes.Add(new AStarNode(stops[i].Position) { Id = stops[i] });
+                Stop cur = stops[i];
+                AStarNode node = new AStarNode(cur.Position) { Id = cur };
+                map_all.Nodes.Add(node);
+            }
+
+            List<RETRoute> retRoutes = PASReader.ReadRoutesFromFile("RET.PAS");
+            List<RetStop> retStops = CSVReader.GetRetStopsFromFile("RET.HLT");
+            for (int i = 0; i < retRoutes.Count; i++)
+            {
+                RETRoute cur = retRoutes[i];
+                Log.Debug(nameof(AStar), $"Adding route: {cur}");
+                for (int j = 0; j < cur.Stops.Count; j++)
+                {
+                    AStarNode curNode;
+                    if (!TryGetNode(retStops, cur, j, out curNode)) continue;
+
+                    if (j > 0)
+                    {
+                        AStarNode prevNode;
+                        if (!TryGetNode(retStops, cur, j - 1, out prevNode)) continue;
+                        if (!curNode.Adjason.Contains(prevNode)) curNode.Adjason.Add(prevNode);
+                    }
+
+                    if (j < cur.Stops.Count - 1)
+                    {
+                        AStarNode nextNode;
+                        if (!TryGetNode(retStops, cur, j + 1, out nextNode)) continue;
+                        if (!curNode.Adjason.Contains(nextNode)) curNode.Adjason.Add(nextNode);
+                    }
+                }
+            }
+
+            map_all.Nodes.RemoveAll(n => n.Adjason.Count == 0);
+            sw.Stop();
+            Log.Verbose(nameof(AStar), $"Finished generating map, took: {sw.Elapsed}");
+        }
+
+        private bool TryGetNode(List<RetStop> retStops, RETRoute cur, int j, out AStarNode result)
+        {
+            try
+            {
+                RetStop curRetStop = retStops.Find(rs => rs.Code == cur.Stops[j].Id);
+                Stop nodeId = stops.Find(s => s.Name == curRetStop.Name);
+                result = map_all.Nodes.Find(n => n.Id == nodeId);
+                return result != null;
+            }
+            catch
+            {
+                result = null;
+                return false;
             }
         }
 
@@ -352,6 +403,34 @@
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Stop start = comboBox1.SelectedItem as Stop;
+            Stop end = comboBox2.SelectedItem as Stop;
+
+            label3.Text = string.Empty;
+            if (map_all.Nodes.Find(n => n.Position == new Vect2(start.Position)) == null) label3.Text = "Start not in routes";
+            if (map_all.Nodes.Find(n => n.Position == new Vect2(end.Position)) == null) label3.Text = "End not in routes";
+            if (!string.IsNullOrEmpty(label3.Text)) return;
+
+            map_all.Start = new Vect2(start.Position);
+            map_all.End = new Vect2(end.Position);
+
+            List<AStarNode> result = AStar.GetRoute(map_all);
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Route length: ");
+            sb.Append(result.Count);
+            sb.AppendLine(Environment.NewLine);
+            for (int i = 0; i < result.Count; i++)
+            {
+                sb.Append(i);
+                sb.Append(": ");
+                sb.Append(result[i].Id);
+                sb.Append(Environment.NewLine);
+            }
+            label3.Text = sb.ToString();
         }
     }
 }
