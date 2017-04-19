@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.map = new GMap.NET.WindowsForms.GMapControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Help = new System.Windows.Forms.Button();
@@ -44,6 +45,7 @@
             this.Trein = new System.Windows.Forms.CheckBox();
             this.cSVReaderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -94,7 +96,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.Help);
+            this.splitContainer1.Panel2.Controls.Add(this.label5);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
@@ -134,9 +136,9 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(66, 181);
+            this.label3.Location = new System.Drawing.Point(82, 155);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 13);
             this.label3.TabIndex = 9;
@@ -247,6 +249,15 @@
             // 
             this.mainFormBindingSource.DataSource = typeof(OpenDataApplication.MainForm);
             // 
+            // label5
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(124, 356);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(363, 234);
+            this.label5.TabIndex = 11;
+            this.label5.Text = resources.GetString("label5.Text");
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -284,7 +295,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.BindingSource cSVReaderBindingSource;
         private System.Windows.Forms.BindingSource mainFormBindingSource;
-        private System.Windows.Forms.Button Help;
+        private System.Windows.Forms.Label label5;
     }
 }
 
