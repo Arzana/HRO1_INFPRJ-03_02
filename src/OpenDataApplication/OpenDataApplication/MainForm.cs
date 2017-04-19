@@ -1,25 +1,36 @@
 ﻿namespace OpenDataApplication
 {
     using Core;
+    using Core.DataTypes;
+    using GMap.NET;
+    using GMap.NET.MapProviders;
+    using GMap.NET.WindowsForms;
+    using Markers;
+    using DeJong.Utilities.Logging;
     using System;
     using System.Drawing;
     using System.Collections.Generic;
     using System.Windows.Forms;
-    using GMap.NET.WindowsForms;
-    using GMap.NET.MapProviders;
-    using GMap.NET;
-    using GMap.NET.WindowsForms.Markers;
-    using Mentula.Utilities.Logging;
+    using System.Linq;
+    using Core.Route;
 
     public sealed partial class MainForm : Form
     {
+        private AStarMap map_all;
+        private List<string> stationsCodesRotterdam;
+        List<Station> stations;
+        List<Stop> stops;
+
         public MainForm()
         {
+            stationsCodesRotterdam = new List<string>();
+
             InitializeComponent();
             InitializeBaseMap();
+
             InitializeStationLayer();
             InitializeStopLayer();
-            
+            InitializeAStartMaps();
         }
 
         private void InitializeBaseMap()
@@ -33,86 +44,135 @@
         private void InitializeStationLayer()
         {
             GMapOverlay overlay = new GMapOverlay("Stations");
-            List<Station> stations = CSVReader.GetStationsFromFile("..\\..\\..\\..\\Third-Party\\Data\\stations-nl-2015-08.csv");
+            stations = CSVReader.GetStationsFromFile($"stations-nl-2015-08.csv");
 
+            Log.Info(nameof(stations), $"Starting adding {stations.Count} station markers");
             for (int i = 0; i < stations.Count; i++)
             {
                 Station cur = stations[i];
-                GMarkerGoogleType markerStyle;
-                switch (cur.Type)
+                if (cur.FullName.ToUpper().Contains("ROTTERDAM") && (!comboBox1.Items.Contains(cur)))
                 {
-                    case StationType.knooppuntstoptreinstation:
-                    case StationType.stoptreinstation:
-                        markerStyle = GMarkerGoogleType.green;
-                        break;
-                    case StationType.sneltreinstation:
-                    case StationType.intercitystation:
-                    case StationType.knooppuntsneltreinstation:
-                    case StationType.knooppuntintercitystation:
-                        markerStyle = GMarkerGoogleType.yellow;
-                        break;
-                    case StationType.megastation:
-                        markerStyle = GMarkerGoogleType.orange;
-                        break;
-                    case StationType.facultatiefstation:
-                    case StationType.none:
-                    default:
-                        markerStyle = GMarkerGoogleType.red;
-                        break;
+                    Log.Debug(nameof(stations), $"Adding station {cur.FriendlyName}");
+                    overlay.Markers.Add(new NSMarker(cur.Position));
+                    comboBox1.Items.Add(cur);
+                    comboBox2.Items.Add(cur);
+                    stationsCodesRotterdam.Add(cur.Code);
                 }
-
-                Log.Debug(nameof(stations), $"Adding station {cur.FriendlyName} at {cur.Position}");
-                overlay.Markers.Add(new GMarkerGoogle(cur.Position, markerStyle));
             }
+            Log.Info(nameof(stations), $"Finished adding station markers");
 
             map.Overlays.Add(overlay);
         }
 
         private void InitializeStopLayer()
         {
-            GMapOverlay overlay = new GMapOverlay("Stops");
-            List<Stop> stops = CSVReader.GetStopsFromFile("..\\..\\..\\..\\Third-Party\\Data\\RET-haltebestand.csv");
+            GMapOverlay Busoverlay = new GMapOverlay("BusStops");
+            GMapOverlay Tramoverlay = new GMapOverlay("TramStops");
+            GMapOverlay Metrooverlay = new GMapOverlay("MetroStops");
+            stops = CSVReader.GetStopsFromFile($"RET-haltebestand.csv");
+            List<Stop> busstops = new List<Stop>();
+            List<Stop> tramstops = new List<Stop>();
+            List<Stop> metrostops = new List<Stop>();
+
 
             for (int i = 0; i < stops.Count; i++)
             {
-                Stop cur = stops[i];
-                GMarkerGoogleType markerStyle;
-                if (cur.Description.ToUpper().Contains("TRAM")) markerStyle = GMarkerGoogleType.blue;
-                else if (cur.Description.ToUpper().Contains("BUS")) markerStyle = GMarkerGoogleType.purple;
-                else if (cur.Description.ToUpper().Contains("METRO")) markerStyle = GMarkerGoogleType.pink;
-                else if (cur.Description.ToUpper().Contains("FERRY")) markerStyle = GMarkerGoogleType.lightblue;
-                else
+                if (stops[i].Type == StopType.Bus)
                 {
-                    Log.Info(nameof(stops), $"Unhandled stattion type: {cur.Description}");
-                    markerStyle = GMarkerGoogleType.black_small;
+                    busstops.Add(stops[i]);
                 }
-
-                Log.Debug(nameof(stops), $"Adding stop {cur.Name} at {cur.Position}");
-                overlay.Markers.Add(new GMarkerGoogle(cur.Position, markerStyle));
+                else if (stops[i].Type == StopType.Tram)
+                {
+                    tramstops.Add(stops[i]);
+                }
+                else if (stops[i].Type == StopType.Metro)
+                {
+                    metrostops.Add(stops[i]);
+                }
             }
 
-            map.Overlays.Add(overlay);
+            Log.Info(nameof(stops), $"Started adding {stops.Count} stop markers");
+            for (int i = 0; i < busstops.Count; i++)
+            {
+                Stop cur = busstops[i];
+                if (!comboBox1.Items.Contains(cur))
+                {
+                    Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
+                    Busoverlay.Markers.Add(new RETMarker(cur));
+                    comboBox1.Items.Add(cur);
+                    comboBox2.Items.Add(cur);
+                }
+            }
+
+            for (int i = 0; i < tramstops.Count; i++)
+            {
+                Stop cur = tramstops[i];
+                if (!comboBox1.Items.Contains(cur))
+                {
+                    Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
+                    Tramoverlay.Markers.Add(new RETMarker(cur));
+                    comboBox1.Items.Add(cur);
+                    comboBox2.Items.Add(cur);
+                }
+            }
+
+            for (int i = 0; i < metrostops.Count; i++)
+            {
+                Stop cur = metrostops[i];
+                if (!comboBox1.Items.Contains(cur))
+                {
+                    Log.Debug(nameof(stops), $"Adding stop {cur.Name}");
+                    Metrooverlay.Markers.Add(new RETMarker(cur));
+                    comboBox1.Items.Add(cur);
+                    comboBox2.Items.Add(cur);
+                }
+            }
+            Log.Info(nameof(stops), $"Finished adding stop markers");
+
+            map.Overlays.Add(Busoverlay);
+            map.Overlays.Add(Tramoverlay);
+            map.Overlays.Add(Metrooverlay);
+        }
+
+        private void InitializeAStartMaps()
+        {
+            map_all = new AStarMap();
+
+            for (int i = 0; i < stationsCodesRotterdam.Count; i++)
+            {
+                Station cur = stations.Find(s => s.Code == stationsCodesRotterdam[i]);
+                AStarNode node = new AStarNode(cur.Position) { Id = cur };
+                map_all.Nodes.Add(node);
+            }
+
+            List<RETRoute> retRoutes = PASReader.ReadRoutesFromFile("RET.PAS");
+            List<RetStop> retStops = CSVReader.GetRetStopsFromFile("RET.HLT");
+
+            for (int i = 0; i < stops.Count; i++)
+            {
+                map_all.Nodes.Add(new AStarNode(stops[i].Position) { Id = stops[i] });
+            }
         }
 
         private List<PointLatLng> points = new List<PointLatLng>();
         private List<PointLatLng> Gpoints = new List<PointLatLng>();
 
         private GMapOverlay InitializePolygonLayer(PointLatLng point, GMapOverlay PolyOverlay)
-        {           
+        {
             overlay.Polygons.Clear();
             map.Overlays.Remove(PolyOverlay);
             points.Clear();
             Gpoints.Clear();
 
-            List<Station> stations = CSVReader.GetStationsFromFile("..\\..\\..\\..\\Third-Party\\Data\\stations-nl-2015-08.csv");
-            List<Stop> stops = CSVReader.GetStopsFromFile("..\\..\\..\\..\\Third-Party\\Data\\RET-haltebestand.csv");
-            PointLatLng Stopclosest = new PointLatLng(0,0);
+            List<Station> stations = CSVReader.GetStationsFromFile($"stations-nl-2015-08.csv");
+            List<Stop> stops = CSVReader.GetStopsFromFile($"RET-haltebestand.csv");
+            PointLatLng Stopclosest = new PointLatLng(0, 0);
             double StopdifCoor = 1000000;
             PointLatLng Stationclosest = new PointLatLng(0, 0);
             double StationdifCoor = 1000000;
             PointLatLng Drawer = new PointLatLng(0, 0);
 
-            
+
 
             for (int i = 0; i < stops.Count; i++)
             {
@@ -120,7 +180,7 @@
                 double difLat = Math.Abs(cur.Position.Lat - point.Lat);
                 double difLng = Math.Abs(cur.Position.Lng - point.Lng);
                 double InnerdifCoor = difLng + difLat;
-                if(InnerdifCoor < StopdifCoor)
+                if (InnerdifCoor < StopdifCoor)
                 {
                     StopdifCoor = InnerdifCoor;
                     InnerdifCoor = 0;
@@ -213,8 +273,85 @@
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            map.BoundsOfMap = map.GetRectOfAllMarkers("Stations");
+            map.BoundsOfMap = map.GetRectOfAllMarkers("BusStops");
             map.Zoom = 12;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Station selectedStation = (sender as ComboBox)?.SelectedItem as Station;
+            if (selectedStation != null)
+            {
+                label3.Text = selectedStation.Type.ToString();
+                map.Position = selectedStation.Position;
+            }
+            else
+            {
+                Stop selectedStop = (sender as ComboBox)?.SelectedItem as Stop;
+                if (selectedStop != null)
+                {
+                    label3.Text = selectedStop.Description;
+                    map.Position = selectedStop.Position;
+                }
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Station selectedStation = (sender as ComboBox)?.SelectedItem as Station;
+            if (selectedStation != null)
+            {
+                label3.Text = selectedStation.Type.ToString();
+                map.Position = selectedStation.Position;
+            }
+            else
+            {
+                Stop selectedStop = (sender as ComboBox)?.SelectedItem as Stop;
+                if (selectedStop != null)
+                {
+                    label3.Text = selectedStop.Description;
+                    map.Position = selectedStop.Position;
+                }
+            }
+        }
+
+        private void Trein_CheckedChanged(object sender, EventArgs e)
+        {
+            //Trein
+            map.Overlays.First(o => o.Id == "Stations").IsVisibile = Trein.Checked;
+        }
+
+        private void Metro_CheckedChanged(object sender, EventArgs e)
+        {
+            //Metro
+            map.Overlays.First(o => o.Id == "MetroStops").IsVisibile = Metro.Checked;
+        }
+
+        private void Tram_CheckedChanged(object sender, EventArgs e)
+        {
+            //Tram
+            map.Overlays.First(o => o.Id == "TramStops").IsVisibile = Tram.Checked;
+        }
+
+        private void Bus_CheckedChanged(object sender, EventArgs e)
+        {
+            //Bus
+            map.Overlays.First(o => o.Id == "BusStops").IsVisibile = Bus.Checked;
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

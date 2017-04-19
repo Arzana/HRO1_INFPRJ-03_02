@@ -1,6 +1,7 @@
 ﻿namespace OpenDataApplication.Core
 {
-    using Mentula.Utilities.Logging;
+    using DataTypes;
+    using DeJong.Utilities.Logging;
     using System;
     using System.ComponentModel;
 

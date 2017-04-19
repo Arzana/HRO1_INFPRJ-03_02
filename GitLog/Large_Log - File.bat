@@ -1,0 +1,1 @@
+git log > gitLog.txt --decorate --graph --pretty=fuller --stat -p
