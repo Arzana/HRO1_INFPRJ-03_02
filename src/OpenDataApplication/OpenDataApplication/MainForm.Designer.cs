@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.map = new GMap.NET.WindowsForms.GMapControl();
+            this.map.MouseClick += MouseClicker;
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Help = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
