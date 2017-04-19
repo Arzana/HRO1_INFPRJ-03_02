@@ -1,6 +1,7 @@
 ﻿using DeJong.Utilities.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace OpenDataApplication.Core.DataTypes
 {
@@ -41,6 +42,11 @@ namespace OpenDataApplication.Core.DataTypes
                     break;
             }
         }
+
+        public override string ToString()
+        {
+            return $"{{{Type} stops at {Stops.Count} stops}}";
+        }
     }
 
     public class BigRouteStop : RouteStop
@@ -61,6 +67,11 @@ namespace OpenDataApplication.Core.DataTypes
         public void SetLeaveFromString(string leave)
         {
             Leave = new TimeSpan(int.Parse(leave.Substring(0, 2)), int.Parse(leave.Substring(2, 2)), 0);
+        }
+
+        public override string ToString()
+        {
+            return $"{Id}";
         }
     }
 

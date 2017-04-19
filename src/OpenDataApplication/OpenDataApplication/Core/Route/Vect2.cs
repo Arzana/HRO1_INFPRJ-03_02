@@ -8,36 +8,36 @@
         public static readonly Vect2 Zero = new Vect2();
         public static readonly Vect2 InvOne = new Vect2(-1);
 
-        public float X { get; set; }
-        public float Y { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
 
         public static Vect2 operator -(Vect2 left, Vect2 right) { return new Vect2(left.X - right.X, left.Y - right.Y); }
         public static bool operator ==(Vect2 left, Vect2 right) { return left.X == right.X && left.Y == right.Y; }
         public static bool operator !=(Vect2 left, Vect2 right) { return left.X != right.X || left.Y != right.Y; }
 
-        public Vect2(float value)
+        public Vect2(double value)
         {
             X = value;
             Y = value;
         }
 
-        public Vect2(float x, float y)
+        public Vect2(double x, double y)
         {
             X = x;
             Y = y;
         }
 
-        public static float Dist(Vect2 left, Vect2 right)
+        public static double Dist(Vect2 left, Vect2 right)
         {
             return (right - left).Length();
         }
 
-        public float Length()
+        public double Length()
         {
-            return (float)Math.Sqrt(Dot(this, this));
+            return Math.Sqrt(Dot(this, this));
         }
 
-        public static float Dot(Vect2 left, Vect2 right)
+        public static double Dot(Vect2 left, Vect2 right)
         {
             return left.X * right.X + left.Y + right.Y;
         }

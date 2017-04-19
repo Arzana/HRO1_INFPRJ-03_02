@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using GMap.NET;
+using System.Collections.Generic;
 
 namespace OpenDataApplication.Core.Route
 {
     public sealed class AStarNode
     {
+        public object Id { get; set; }
         public Vect2 Position { get; private set; }
         public int Heuristic { get; private set; }
 
@@ -18,9 +20,9 @@ namespace OpenDataApplication.Core.Route
 
         private AStarNode parent;
 
-        public AStarNode(Vect2 position)
+        public AStarNode(PointLatLng position)
         {
-            Position = position;
+            Position = new Vect2(position.Lat, position.Lng);
             Adjason = new List<AStarNode>();
         }
 
@@ -33,6 +35,11 @@ namespace OpenDataApplication.Core.Route
         {
             GValue += parent.GValue + moveCost;
             this.parent = parent;
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }

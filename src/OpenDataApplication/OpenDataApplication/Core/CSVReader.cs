@@ -2,6 +2,7 @@
 {
     using DataTypes;
     using DeJong.Utilities.Core;
+    using DeJong.Utilities.Core.Collections;
     using DeJong.Utilities.Logging;
     using Properties;
     using System;
@@ -49,6 +50,11 @@
             return GetData<Stop>(path, overrideCache);
         }
 
+        public static List<RetStop> GetRetStopsFromFile(string path, bool overrideCache = false)
+        {
+            return GetData<RetStop>(path, overrideCache);
+        }
+
         /// <summary>
         /// Clears the stations and stops from the cache.
         /// </summary>
@@ -87,7 +93,7 @@
             List<T> result = new List<T>();
             curLine = 0;
 
-            LoggedException.RaiseIf(!fileName.EndsWith(".csv"), nameof(CSVReader),      // Raise an exception if the files isn't a .csv file.
+            LoggedException.RaiseIf(!(fileName.EndsWith(".csv") || fileName.EndsWith(".HLT")), nameof(CSVReader),      // Raise an exception if the files isn't a .csv file.
                 $"Cannot open file with extension {Path.GetExtension(fileName)}, supply .csv file");
 
             try
@@ -95,6 +101,7 @@
                 using (StreamReader sr = new StreamReader(fileName))                    // Open a read stream to the file.
                 {
                     Log.Verbose(nameof(CSVReader), $"Started parsing file: '{Path.GetFileName(fileName)}'");
+                    char[] splitChars = fileName.EndsWith(".csv") ? new char[] { ';' } : new char[] { ',' };
 
                     string line;
                     while ((line = sr.ReadLine()) != null)                              // Read all lines.
@@ -102,7 +109,7 @@
                         ++curLine;                                                      // Increment the current line.
 
                         T cur;
-                        if (DeserializeType(line, out cur)) result.Add(cur);            // Deserialzie a type from the current line.
+                        if (DeserializeType(line, splitChars, out cur)) result.Add(cur);            // Deserialzie a type from the current line.
                     }
 
                     Log.Info(nameof(CSVReader), $"File contains {result.Count} readable entries");
@@ -125,22 +132,27 @@
         /// <param name="ctor"> A function to user as the types constructor. </param>
         /// <param name="value"> The result value of the deserialization (default(T) if failed). </param>
         /// <returns> Whether the deserialization has succeeded. </returns>
-        private static bool DeserializeType<T>(string line, out T value)
+        private static bool DeserializeType<T>(string line, char[] splitChars, out T value)
             where T : ISerializable, new()
         {
             value = default(T);
 
             try
             {
-                SerializationInfo objInfo = cache_refl.GetInfo<T>();                                // Get a container for the objects types to serialize.
-                SerializationInfo resultInfo = cache_refl.GetEmptyInfo<T>();                        // Get a container for the types read from the file.
+                SerializationInfo objInfo = cache_refl.GetInfo<T>();                                        // Get a container for the objects types to serialize.
+                SerializationInfo resultInfo = cache_refl.GetEmptyInfo<T>();                                // Get a container for the types read from the file.
 
-                string[] rawValues = line.Split(';');                                               // Splits the line so we only have the underlying values.
-                if (rawValues.Length != objInfo.MemberCount) return false;                          // Check if the line contains enough members to populate the type.
+                string[] rawValues = line.Split(splitChars, StringSplitOptions.RemoveEmptyEntries);         // Splits the line so we only have the underlying values.
+                for (int j = 0; j < rawValues.Length;)
+                {
+                    if (string.IsNullOrWhiteSpace(rawValues[j])) rawValues = rawValues.RemoveAt(j);
+                    else ++j;
+                }
+                if (splitChars[0] == ';' && rawValues.Length != objInfo.MemberCount) return false;                                  // Check if the line contains enough members to populate the type.
 
                 int i = 0;
                 bool failed = false;
-                foreach (SerializationEntry entry in objInfo)                                       // Loop through all members to convert and add their values.
+                foreach (SerializationEntry entry in objInfo)                                               // Loop through all members to convert and add their values.
                 {
                     // Floats and doubles need to be converted to the correct culture.
                     if (entry.ObjectType == typeof(double) || entry.ObjectType == typeof(float)) rawValues[i] = rawValues[i].Replace(',', '.');
@@ -148,7 +160,10 @@
                     {
                         TypeConverter converter = null; // Attempt to get a type converter for the current type.
                         failed = failed || !ExtraTypeDescriptor.GetFromString(entry.ObjectType, out converter);
-                        if (!failed) resultInfo.AddValue(entry.Name, converter.ConvertFromString(rawValues[i++]));
+                        if (!failed)
+                        {
+                            resultInfo.AddValue(entry.Name, i < rawValues.Length ? converter.ConvertFromString(rawValues[i++]) : entry.Value);
+                        }
                     }
                     catch (Exception)
                     {

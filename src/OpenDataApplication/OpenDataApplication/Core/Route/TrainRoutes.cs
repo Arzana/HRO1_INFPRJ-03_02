@@ -5,7 +5,7 @@
     using System.Xml.Serialization;
 
     [XmlRoot("ActueleVertrekTijden")]
-    public sealed class TrainRoutes : IEnumerable<NsData>
+    public sealed class TrainRoutes
     {
         [XmlElement("VertrekkendeTrein")]
         public List<NsData> Data { get; set; }
@@ -13,16 +13,6 @@
         public TrainRoutes()
         {
             Data = new List<NsData>();
-        }
-
-        public IEnumerator<NsData> GetEnumerator()
-        {
-            return Data.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

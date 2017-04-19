@@ -6,8 +6,8 @@ namespace OpenDataApplication.Core.Route
     {
         public static List<AStarNode> GetRoute(AStarMap map)
         {
-            List<AStarNode> open = new List<AStarNode>(map.Nodes.Length);
-            List<AStarNode> closed = new List<AStarNode>(map.Nodes.Length);
+            List<AStarNode> open = new List<AStarNode>(map.Nodes.Count);
+            List<AStarNode> closed = new List<AStarNode>(map.Nodes.Count);
 
             AStarNode cur = map.GetStartNode();
             while (true)

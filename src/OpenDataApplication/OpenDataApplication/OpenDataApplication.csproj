@@ -58,6 +58,7 @@
     <Compile Include="Core\CSVReader.cs" />
     <Compile Include="Core\CustomMarker.cs" />
     <Compile Include="Core\DataTypes\RETRoute.cs" />
+    <Compile Include="Core\DataTypes\RetStop.cs" />
     <Compile Include="Core\DataTypes\Station.cs" />
     <Compile Include="Core\EnumTypeConverter.cs" />
     <Compile Include="Core\ExtraTypeDescriptor.cs" />
@@ -99,6 +100,9 @@
     </Compile>
     <None Include="Data\RET-haltebestand.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\RET.HLT">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\RET.PAS">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
