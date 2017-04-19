@@ -9,6 +9,7 @@
         [STAThread]
         public static void Main()
         {
+            if (System.Diagnostics.Debugger.IsAttached) throw new InvalidOperationException("Do not run in an IDE!");
 #if DEBUG
             bool release = false;
 #else
