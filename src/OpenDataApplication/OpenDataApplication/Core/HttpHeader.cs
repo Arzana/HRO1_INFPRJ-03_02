@@ -16,7 +16,7 @@ namespace OpenDataApplication.Core
     public class NsData
     {
         public int RitNummer;
-        public string VertrekTijd;
+        public DateTime VertrekTijd;
         public string EindBestemming;
         public string TreinSoort;
         public string Vervoerder;
@@ -24,7 +24,7 @@ namespace OpenDataApplication.Core
 
         public override string ToString()
         {
-            return $"{{{RitNummer}, {VertrekTijd ?? "NULL"}, {EindBestemming ?? "NULL"}, {TreinSoort ?? "NULL"}, {Vervoerder ?? "NULL"}, {VertrekSpoor ?? "NULL"}}}";
+            return $"{{{RitNummer}, {VertrekTijd}, {EindBestemming ?? "NULL"}, {TreinSoort ?? "NULL"}, {Vervoerder ?? "NULL"}, {VertrekSpoor ?? "NULL"}}}";
         }
     }
 
