@@ -33,7 +33,6 @@
             this.map = new GMap.NET.WindowsForms.GMapControl();
             this.map.MouseClick += MouseClicker;
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.Help = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -113,17 +112,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1341, 593);
             this.splitContainer1.SplitterDistance = 847;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // Help
-            // 
-            this.Help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Help.Location = new System.Drawing.Point(407, 563);
-            this.Help.Name = "Help";
-            this.Help.Size = new System.Drawing.Size(80, 27);
-            this.Help.TabIndex = 11;
-            this.Help.Text = "Help";
-            this.Help.UseVisualStyleBackColor = true;
-            this.Help.Click += new System.EventHandler(this.Help_Click);
             // 
             // label4
             // 
